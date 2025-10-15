@@ -5,17 +5,17 @@
   "type": "module",
   "license": "MIT",
   "author": {
-    "name": "Ian",
+    "name": "Ian Bell",
     "url": "https://tiktaktoe.co.uk",
     "email": "ian@tiktaktoe.co.uk"
   },
   "funding": {
-    "type": "calendly",
-    "url": "calendly-link"
+    "type": "website",
+    "url": "https://tiktaktoe.co.uk"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/yourusername/terminal-portfolio"
+    "url": "https://github.com/ianbelldev/terminal-portfolio"
   },
   "scripts": {
     "dev": "vite",

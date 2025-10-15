@@ -17,10 +17,10 @@
 </svelte:head>
 
 <main
-  class="h-full border-2 rounded-md p-4 overflow-auto text-xs sm:text-sm md:text-base"
+  class="h-full border-2 rounded-md p-2 sm:p-4 overflow-auto text-xs sm:text-sm md:text-base break-words"
   style={`background-color: ${$theme.background}; color: ${$theme.foreground}; border-color: ${$theme.green};`}
 >
-  <div style="position: relative; z-index: 10;">
+  <div style="position: relative; z-index: 10; max-width: 100%; overflow-wrap: break-word;">
     <History />
 
     <div class="flex flex-col md:flex-row mt-2">

@@ -213,45 +213,18 @@ Type [CMD]'contact'[/CMD] to get in touch.`;
   clear: () => {
     history.set([]);
 
-    return commands.banner();
+    return (commands.banner as () => string)();
   },
   cls: () => {
     history.set([]);
 
-    return commands.banner();
+    return (commands.banner as () => string)();
   },
   home: () => {
     history.set([]);
 
-    return commands.banner();
+    return (commands.banner as () => string)();
   },
-  demo1: () => `OPTION 1: Colored Commands (Yellow/Bold)
-
-This is sample text with navigation hints.
-
-Type [CMD]'about'[/CMD] to learn more about me.
-Type [CMD]'skills'[/CMD] for detailed technical capabilities.
-Type [CMD]'contact'[/CMD] to get in touch.
-
-Commands are highlighted in yellow and bold.`,
-  demo2: () => `OPTION 2: Dimmed Text with Bold Commands
-
-This is sample text with navigation hints.
-
-Type [DIM]'about'[/DIM] to learn more about me.
-Type [DIM]'skills'[/DIM] for detailed technical capabilities.
-Type [DIM]'contact'[/DIM] to get in touch.
-
-Helper text is dimmed, commands are bold/bright.`,
-  demo3: () => `OPTION 3: Arrow Prefix
-
-This is sample text with navigation hints.
-
-[ARROW] Type 'about' to learn more about me.
-[ARROW] Type 'skills' for detailed technical capabilities.
-[ARROW] Type 'contact' to get in touch.
-
-Each hint has a subtle arrow prefix.`,
   email: () => {
     window.location.href = `mailto:${packageJson.author.email}`;
 
