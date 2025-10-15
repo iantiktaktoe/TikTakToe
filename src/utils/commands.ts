@@ -109,7 +109,7 @@ Senior AI Engineer & Architect
 Email: ian@tiktaktoe.co.uk
 Mobile: 07971 235 265
 LinkedIn: https://www.linkedin.com/in/ianbellprofile/
-Location: Rugby, UK — Remote first
+Location: Warwickshire, UK — Remote first
 
 Let's discuss your complex build requirements.`;
   },
