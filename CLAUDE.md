@@ -15,9 +15,17 @@ This is a Svelte + TypeScript terminal-style portfolio website customized for Ia
 ```
 terminal-portfolio/
 ├── src/
-│   ├── components/       # Svelte components (Input, History, Ps1)
+│   ├── components/       # Svelte components
+│   │   ├── Input.svelte        # Command input with green block cursor
+│   │   ├── History.svelte      # Command history display
+│   │   ├── Ps1.svelte          # Prompt (guest@hostname:)
+│   │   └── TeletypeOutput.svelte  # Teletype animation component
 │   ├── stores/          # Svelte stores (theme, history)
-│   ├── utils/           # Commands, todo manager, tracking
+│   ├── utils/
+│   │   ├── commands.ts         # All terminal commands
+│   │   ├── teletype.ts         # Character-by-character animation
+│   │   ├── todo.ts             # Todo manager
+│   │   └── tracking.ts         # Analytics tracking
 │   ├── interfaces/      # TypeScript interfaces
 │   └── App.svelte       # Main app component
 ├── public/              # Static assets (fonts, icon)
@@ -85,11 +93,16 @@ const defaultColorscheme: Theme = themes.find((t) => t.name === 'Treehouse')!;
 - Theme colors managed via `themes.json` + localStorage
 
 ## Important Notes
-- Browser localStorage caches the selected theme
+- Browser localStorage caches the selected theme and command history
 - Hot Module Replacement (HMR) enabled for fast development
 - If changes don't appear, clear browser cache/localStorage or hard refresh (Ctrl+F5)
 - Commands are case-sensitive by default
-- The banner displays on page load automatically
+- The banner displays on page load automatically (no teletype animation)
+- **Teletype Effect**: All command outputs (except banner/home/clear) display with character-by-character animation
+  - Press any key to skip animation
+  - Animation speed: 25ms per character
+  - Bright green block cursor (█) follows typing
+  - Sound is currently disabled (can be re-enabled in TeletypeOutput.svelte)
 
 ## Deployment Options
 1. **Vercel/Netlify**: Connect git repo, auto-deploy
@@ -113,9 +126,15 @@ const defaultColorscheme: Theme = themes.find((t) => t.name === 'Treehouse')!;
 - Add `linkedin` command to link to LinkedIn
 - Create custom ASCII art for different sections
 - Add more interactive commands with arguments
+- Re-enable typing sound (set `playSound: true` in TeletypeOutput.svelte)
+- Adjust teletype speed (modify `speed` option in teletype.ts)
+- Customize cursor color/shape (currently bright green █ block)
 
 ## Troubleshooting
 - **Changes not showing**: Clear browser cache, check console for errors
 - **Theme not changing**: Clear localStorage in browser DevTools
 - **Commands not working**: Check `src/utils/commands.ts` syntax
 - **Build errors**: Run `npm run check` to see TypeScript errors
+- **Teletype not working**: Clear localStorage history (old entries don't have `isTyping` flag)
+- **Teletype too fast/slow**: Adjust `speed` parameter in `src/utils/teletype.ts` (default: 25ms)
+- **Title spacing issues**: Check that consecutive `[TITLE]` tags have proper whitespace handling
