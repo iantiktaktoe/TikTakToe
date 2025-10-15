@@ -95,7 +95,7 @@
                 return null;
               }}
               {@const prevPart = findPrevNonWhitespace()}
-              {@const marginTop = prevPart && prevPart.type === 'title' ? '0.25rem' : '1rem'}
+              {@const marginTop = prevPart && prevPart.type === 'title' ? '-1.25rem' : '1rem'}
               <span style={`font-weight: 900; font-size: 1.1em; color: ${$theme.green}; display: block; margin-top: ${marginTop};`}>{part.text}</span>
             {:else}
               {part.text}
