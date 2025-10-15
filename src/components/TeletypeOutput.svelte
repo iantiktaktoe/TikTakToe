@@ -2,7 +2,7 @@
 <!-- ABOUTME: Displays text character-by-character with blinking cursor and typing sound -->
 
 <script lang="ts">
-  import { onMount, onDestroy } from 'svelte';
+  import { onMount, onDestroy, afterUpdate } from 'svelte';
   import { theme } from '../stores/theme';
   import { createTeletype, type TeletypeState } from '../utils/teletype';
   import type { Writable } from 'svelte/store';
@@ -18,6 +18,7 @@
   };
 
   let unsubscribe: (() => void) | null = null;
+  let outputElement: HTMLParagraphElement;
 
   onMount(() => {
     teletypeStore = createTeletype(output, { playSound: false });
@@ -46,6 +47,13 @@
     return () => {
       window.removeEventListener('keydown', handleKeyPress);
     };
+  });
+
+  afterUpdate(() => {
+    // Auto-scroll to keep the typing cursor in view
+    if (outputElement && state.isTyping) {
+      outputElement.scrollIntoView({ behavior: 'smooth', block: 'end' });
+    }
   });
 
   onDestroy(() => {
@@ -94,7 +102,7 @@
   $: parsedParts = parseOutput(state.displayedText);
 </script>
 
-<p class="whitespace-pre mb-2">
+<p class="whitespace-pre mb-2" bind:this={outputElement}>
   {#each parsedParts as part, index}
     {#if part.type === 'command'}
       <span style={`color: ${$theme.yellow}; font-weight: bold;`}>{part.text}</span>
@@ -112,13 +120,13 @@
         return null;
       }}
       {@const prevPart = findPrevNonWhitespace()}
-      {@const marginTop = prevPart && prevPart.type === 'title' ? '0.25rem' : '1rem'}
+      {@const marginTop = prevPart && prevPart.type === 'title' ? '0.1rem' : '1rem'}
       <span style={`font-weight: 900; font-size: 1.1em; color: ${$theme.green}; display: block; margin-top: ${marginTop};`}>{part.text}</span>
     {:else}
       {part.text}
     {/if}
   {/each}
   {#if state.isTyping}
-    <span class="blinking-cursor" style="color: #00ff00; font-weight: bold;">█</span>
+    <span class="blinking-cursor" style="color: #33cc33; font-weight: bold;">█</span>
   {/if}
 </p>

@@ -117,7 +117,7 @@
 <div class="flex items-center">
   <p class="visible md:hidden">❯</p>
   {#if command.length === 0}
-    <span class="blinking-cursor" style="color: #00ff00; font-weight: bold;">█</span>
+    <span class="blinking-cursor" style="color: #33cc33; font-weight: bold;">█</span>
   {/if}
 
   <input
@@ -125,7 +125,7 @@
     name="command-input"
     aria-label="Command input"
     class="bg-transparent outline-none font-bold"
-    style={`color: ${$theme.foreground}; caret-color: transparent; width: ${command.length > 0 ? command.length + 1 : 1}ch; vertical-align: baseline; line-height: 1; ${command.length > 0 ? 'background-color: #00ff00; color: #000000; padding: 2px 4px;' : ''}`}
+    style={`color: ${$theme.foreground}; caret-color: transparent; width: ${command.length > 0 ? command.length + 1 : 1}ch; vertical-align: baseline; line-height: 1; ${command.length > 0 ? 'background-color: #33cc33; color: #000000; padding: 2px 4px;' : ''}`}
     type="text"
     bind:value={command}
     on:keydown={handleKeyDown}

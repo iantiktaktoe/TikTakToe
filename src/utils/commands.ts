@@ -9,7 +9,7 @@ const hostname = window.location.hostname;
 export const commands: Record<string, (args: string[]) => Promise<string> | string> = {
   help: () => {
     const categories = {
-      About: ["about", "skills", "services"],
+      About: ["about", "skills", "services", "clients"],
       Contact: ["contact", "email"],
       System: ["help", "clear", "cls", "banner", "home"],
       "Style Demos": ["demo1", "demo2", "demo3"],
@@ -45,6 +45,7 @@ Approach: Start with the problem. Ship small. Measure. Scale.
 
 Type [CMD]'services'[/CMD] to see what I can help with.
 Type [CMD]'skills'[/CMD] for detailed technical capabilities.
+Type [CMD]'clients'[/CMD] to see who I've worked with.
 Type [CMD]'contact'[/CMD] to get in touch.`,
   skills: () => `[TITLE]Technical Skills & Expertise[/TITLE]
 AI Engineering:
@@ -78,6 +79,7 @@ Industries: Government, Finance, Pharma, Legal, Retail
 
 Type [CMD]'about'[/CMD] to learn more about me.
 Type [CMD]'services'[/CMD] to see what I can help with.
+Type [CMD]'clients'[/CMD] to see who I've worked with.
 Type [CMD]'contact'[/CMD] to get in touch.`,
   services: () => `[TITLE]Services & Solutions[/TITLE]
 AI Engineering
@@ -105,6 +107,7 @@ Architecture & Advisory
 
 Type [CMD]'about'[/CMD] to learn more about me.
 Type [CMD]'skills'[/CMD] for detailed technical capabilities.
+Type [CMD]'clients'[/CMD] to see who I've worked with.
 Type [CMD]'contact'[/CMD] to discuss your project.`,
   contact: () => {
     return `[TITLE]Ian Bell[/TITLE]
@@ -118,6 +121,36 @@ Location: Warwickshire, UK — Remote first
 Let's discuss your complex build requirements.
 
 Type [CMD]'email'[/CMD] to send me an email`;
+  },
+  clients: () => {
+    return `[TITLE]Client Portfolio[/TITLE]
+Just some of the clients I've had the opportunity to work with:
+
+• JCB                      • National Express
+• Police Mutual            • PrescQIPP
+• RICOH                    • Rayburn Tours
+• Ingersoll Rand           • Doosan Group
+• Bury College             • Baileys UK
+• QNUK                     • Guinness GB
+• The Ticket Factory       • Tanqueray
+• The NEC                  • Captain Morgan
+• Sheffield Council        • Atlas Assistance
+• The Post Office          • Compressed Air Parts
+• College of Policing      • St Modwens
+• Carter Synergy           • Countrywide Insurance
+• Tarmac                   • M Training
+• Celcat                   • Medibroker Insurance
+• Manchester Connexions    • Helpfinder UK
+• Goodtyre                 • Serverlec Controls
+• Crown Paints UK          • Marlins
+• Oxford University        • Hansa Biopharma
+• National Grid            • Staffordshire University
+• McCann
+
+Industries: Government, Finance, Pharma, Legal, Retail, Manufacturing, Education
+
+Type [CMD]'about'[/CMD] to learn more about my expertise.
+Type [CMD]'services'[/CMD] to see how I can help your organization.`;
   },
   vi: () => `why use vi? try 'emacs'`,
   vim: () => `why use vim? try 'emacs'`,
