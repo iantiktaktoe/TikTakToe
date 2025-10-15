@@ -174,12 +174,12 @@ Let's discuss your complex build requirements.`;
   clear: () => {
     history.set([]);
 
-    return "";
+    return commands.banner();
   },
   cls: () => {
     history.set([]);
 
-    return "";
+    return commands.banner();
   },
   home: () => {
     history.set([]);
