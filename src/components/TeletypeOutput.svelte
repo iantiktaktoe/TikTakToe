@@ -98,7 +98,15 @@
     {:else if part.type === 'arrow'}
       <span style={`color: ${$theme.green}; opacity: 0.7;`}>{part.text} </span>
     {:else if part.type === 'title'}
-      {@const prevPart = index > 0 ? parsedParts[index - 1] : null}
+      {@const findPrevNonWhitespace = () => {
+        for (let i = index - 1; i >= 0; i--) {
+          if (parsedParts[i].text.trim() !== '') {
+            return parsedParts[i];
+          }
+        }
+        return null;
+      }}
+      {@const prevPart = findPrevNonWhitespace()}
       {@const marginTop = prevPart && prevPart.type === 'title' ? '0.25rem' : '1rem'}
       <span style={`font-weight: 900; font-size: 1.1em; color: ${$theme.green}; display: block; margin-top: ${marginTop};`}>{part.text}</span>
     {:else}

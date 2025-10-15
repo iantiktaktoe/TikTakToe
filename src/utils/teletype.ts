@@ -56,7 +56,6 @@ async function playTypeSound() {
     oscillator.stop(audioContext.currentTime + 0.03);
   } catch (error) {
     // Silently fail if audio doesn't work
-    console.warn('Audio playback failed:', error);
   }
 }
 
