@@ -29,9 +29,14 @@
       }
     });
 
-    // Allow skipping with any keypress
+    // Allow skipping with any keypress (but wait a bit to avoid immediate skip from Enter key)
+    let skipEnabled = false;
+    setTimeout(() => {
+      skipEnabled = true;
+    }, 100);
+
     const handleKeyPress = () => {
-      if (teletypeStore && (teletypeStore as any).skip) {
+      if (skipEnabled && teletypeStore && (teletypeStore as any).skip) {
         (teletypeStore as any).skip();
       }
     };
