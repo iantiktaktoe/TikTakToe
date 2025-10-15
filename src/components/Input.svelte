@@ -19,7 +19,12 @@
       if (command) {
         const output = command();
 
-        $history = [...$history, { command: 'banner', outputs: [output] }];
+        $history = [...$history, {
+          command: 'banner',
+          outputs: [output],
+          isTyping: true,
+          teletypeIndex: 0
+        }];
       }
     }
   });
@@ -42,15 +47,30 @@
         const output = await commandFunction(args);
 
         if (commandName !== 'clear' && commandName !== 'cls' && commandName !== 'home') {
-          $history = [...$history, { command, outputs: [output] }];
+          $history = [...$history, {
+            command,
+            outputs: [output],
+            isTyping: true,
+            teletypeIndex: 0
+          }];
         } else if (output) {
           // For clear/cls/home, still show the banner output but clear history first
-          $history = [{ command: commandName, outputs: [output] }];
+          $history = [{
+            command: commandName,
+            outputs: [output],
+            isTyping: true,
+            teletypeIndex: 0
+          }];
         }
       } else {
         const output = `${commandName}: command not found`;
 
-        $history = [...$history, { command, outputs: [output] }];
+        $history = [...$history, {
+          command,
+          outputs: [output],
+          isTyping: true,
+          teletypeIndex: 0
+        }];
       }
 
       command = '';

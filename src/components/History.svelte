@@ -2,6 +2,7 @@
   import { history } from '../stores/history';
   import { theme } from '../stores/theme';
   import Ps1 from './Ps1.svelte';
+  import TeletypeOutput from './TeletypeOutput.svelte';
 
   // Parse output text for styled command hints
   function parseOutput(text: string) {
@@ -40,9 +41,23 @@
       };
     });
   }
+
+  function handleTeletypeComplete(historyIndex: number) {
+    // Mark typing as complete
+    history.update(h => {
+      const updated = [...h];
+      if (updated[historyIndex]) {
+        updated[historyIndex] = {
+          ...updated[historyIndex],
+          isTyping: false
+        };
+      }
+      return updated;
+    });
+  }
 </script>
 
-{#each $history as { command, outputs }}
+{#each $history as historyItem, historyIndex}
   <div class="mb-4" style={`color: ${$theme.foreground}`}>
     <div class="flex flex-col md:flex-row mb-2">
       <Ps1 />
@@ -50,26 +65,35 @@
       <div class="flex">
         <p class="visible md:hidden">❯</p>
 
-        <p class="px-2">{command}</p>
+        <p class="px-2">{historyItem.command}</p>
       </div>
     </div>
 
-    {#each outputs as output}
-      <p class="whitespace-pre mb-2">
-        {#each parseOutput(output) as part}
-          {#if part.type === 'command'}
-            <span style={`color: ${$theme.yellow}; font-weight: bold;`}>{part.text}</span>
-          {:else if part.type === 'dim'}
-            <span style={`opacity: 0.6; font-weight: bold;`}>{part.text}</span>
-          {:else if part.type === 'arrow'}
-            <span style={`color: ${$theme.green}; opacity: 0.7;`}>{part.text} </span>
-          {:else if part.type === 'title'}
-            <span style={`font-weight: 900; font-size: 1.1em; color: ${$theme.green}; display: block; margin-top: 1rem;`}>{part.text}</span>
-          {:else}
-            {part.text}
-          {/if}
-        {/each}
-      </p>
+    {#each historyItem.outputs as output, outputIndex}
+      {#if historyItem.isTyping && outputIndex === (historyItem.teletypeIndex || 0)}
+        <TeletypeOutput
+          {output}
+          onComplete={() => handleTeletypeComplete(historyIndex)}
+        />
+      {:else}
+        <p class="whitespace-pre mb-2">
+          {#each parseOutput(output) as part, index}
+            {#if part.type === 'command'}
+              <span style={`color: ${$theme.yellow}; font-weight: bold;`}>{part.text}</span>
+            {:else if part.type === 'dim'}
+              <span style={`opacity: 0.6; font-weight: bold;`}>{part.text}</span>
+            {:else if part.type === 'arrow'}
+              <span style={`color: ${$theme.green}; opacity: 0.7;`}>{part.text} </span>
+            {:else if part.type === 'title'}
+              {@const prevPart = index > 0 ? parseOutput(output)[index - 1] : null}
+              {@const marginTop = prevPart && prevPart.type === 'title' ? '0.25rem' : '1rem'}
+              <span style={`font-weight: 900; font-size: 1.1em; color: ${$theme.green}; display: block; margin-top: ${marginTop};`}>{part.text}</span>
+            {:else}
+              {part.text}
+            {/if}
+          {/each}
+        </p>
+      {/if}
     {/each}
   </div>
 {/each}
