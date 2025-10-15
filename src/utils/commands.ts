@@ -31,7 +31,6 @@ export const commands: Record<string, (args: string[]) => Promise<string> | stri
   whoami: () => "guest",
   date: () => new Date().toLocaleString(),
   about: () => `[TITLE]Senior AI Engineer & Architect[/TITLE]
-
 Senior engineer supporting CTOs with hands-on delivery and architecture.
 Security-cleared; enterprise-grade focus on reliability, observability, and cost control.
 
@@ -48,7 +47,6 @@ Type [CMD]'services'[/CMD] to see what I can help with.
 Type [CMD]'skills'[/CMD] for detailed technical capabilities.
 Type [CMD]'contact'[/CMD] to get in touch.`,
   skills: () => `[TITLE]Technical Skills & Expertise[/TITLE]
-
 AI Engineering:
   • Production RAG & C-RAG pipelines with hybrid search
   • LLM fine-tuning (LoRA/QLoRA) and evaluation frameworks
@@ -82,7 +80,6 @@ Type [CMD]'about'[/CMD] to learn more about me.
 Type [CMD]'services'[/CMD] to see what I can help with.
 Type [CMD]'contact'[/CMD] to get in touch.`,
   services: () => `[TITLE]Services & Solutions[/TITLE]
-
 AI Engineering
   • RAG/C-RAG pipelines & hybrid search systems
   • LLM fine-tuning (LoRA/QLoRA) and evaluation

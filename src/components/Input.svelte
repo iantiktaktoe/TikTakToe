@@ -41,8 +41,11 @@
       if (commandFunction) {
         const output = await commandFunction(args);
 
-        if (commandName !== 'clear') {
+        if (commandName !== 'clear' && commandName !== 'cls' && commandName !== 'home') {
           $history = [...$history, { command, outputs: [output] }];
+        } else if (output) {
+          // For clear/cls/home, still show the banner output but clear history first
+          $history = [{ command: commandName, outputs: [output] }];
         }
       } else {
         const output = `${commandName}: command not found`;
