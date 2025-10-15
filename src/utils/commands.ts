@@ -11,7 +11,7 @@ export const commands: Record<string, (args: string[]) => Promise<string> | stri
     const categories = {
       About: ["about", "skills", "services", "clients"],
       Contact: ["contact", "email"],
-      System: ["help", "clear", "cls", "banner", "home"],
+      System: ["help", "clear", "cls", "home"],
     };
 
     let output = "Available commands:\n\n";
