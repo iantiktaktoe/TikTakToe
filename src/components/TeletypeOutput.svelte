@@ -20,7 +20,7 @@
   let unsubscribe: (() => void) | null = null;
 
   onMount(() => {
-    teletypeStore = createTeletype(output);
+    teletypeStore = createTeletype(output, { playSound: false });
 
     unsubscribe = teletypeStore.subscribe((newState) => {
       state = newState;
