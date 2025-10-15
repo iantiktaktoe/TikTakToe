@@ -25,10 +25,19 @@ async function initAudio() {
 }
 
 // Play typing sound - synthesized "dit" sound
-function playTypeSound() {
+async function playTypeSound() {
+  if (!audioContext) {
+    await initAudio();
+  }
+
   if (!audioContext) return;
 
   try {
+    // Resume audio context if suspended (browser autoplay policy)
+    if (audioContext.state === 'suspended') {
+      await audioContext.resume();
+    }
+
     const oscillator = audioContext.createOscillator();
     const gainNode = audioContext.createGain();
 
@@ -47,6 +56,7 @@ function playTypeSound() {
     oscillator.stop(audioContext.currentTime + 0.03);
   } catch (error) {
     // Silently fail if audio doesn't work
+    console.warn('Audio playback failed:', error);
   }
 }
 

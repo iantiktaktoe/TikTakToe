@@ -19,11 +19,11 @@
       if (command) {
         const output = command();
 
+        // Banner/home page should display instantly without teletype
         $history = [...$history, {
           command: 'banner',
           outputs: [output],
-          isTyping: true,
-          teletypeIndex: 0
+          isTyping: false
         }];
       }
     }
@@ -54,12 +54,11 @@
             teletypeIndex: 0
           }];
         } else if (output) {
-          // For clear/cls/home, still show the banner output but clear history first
+          // For clear/cls/home, still show the banner output instantly without teletype
           $history = [{
             command: commandName,
             outputs: [output],
-            isTyping: true,
-            teletypeIndex: 0
+            isTyping: false
           }];
         }
       } else {
