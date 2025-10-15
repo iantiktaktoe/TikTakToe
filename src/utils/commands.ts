@@ -11,7 +11,7 @@ export const commands: Record<string, (args: string[]) => Promise<string> | stri
     const categories = {
       About: ["about", "skills", "services"],
       Contact: ["contact", "email"],
-      System: ["help", "clear", "cls", "banner"],
+      System: ["help", "clear", "cls", "banner", "home"],
     };
 
     let output = "Available commands:\n\n";
@@ -103,10 +103,12 @@ Architecture & Advisory
 
 Type 'contact' to discuss your project.`,
   contact: () => {
-    window.open("calendly-link", "_blank");
-    return `Opening booking link...
+    return `Ian Bell
+Senior AI Engineer & Architect
 
 Email: ian@tiktaktoe.co.uk
+Mobile: 07971 235 265
+LinkedIn: https://www.linkedin.com/in/ianbellprofile/
 Location: Rugby, UK — Remote first
 
 Let's discuss your complex build requirements.`;
@@ -179,10 +181,15 @@ Let's discuss your complex build requirements.`;
 
     return "";
   },
-  email: () => {
-    window.open(`mailto:${packageJson.author.email}`);
+  home: () => {
+    history.set([]);
 
-    return `Opening mailto:${packageJson.author.email}...`;
+    return commands.banner();
+  },
+  email: () => {
+    window.location.href = `mailto:${packageJson.author.email}`;
+
+    return `Opening email client...`;
   },
   weather: async (args: string[]) => {
     const city = args.join("+");

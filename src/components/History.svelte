@@ -6,7 +6,7 @@
 
 {#each $history as { command, outputs }}
   <div class="mb-4" style={`color: ${$theme.foreground}`}>
-    <div class="flex flex-col md:flex-row">
+    <div class="flex flex-col md:flex-row mb-2">
       <Ps1 />
 
       <div class="flex">
