@@ -42,7 +42,7 @@ main {
 /* CRT scanlines + green monitor gradient */
 main::before {
   content: "";
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   right: 0;
@@ -67,7 +67,7 @@ main::before {
 /* CRT screen curvature and glow */
 main::after {
   content: "";
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   right: 0;

@@ -58,7 +58,7 @@
 </script>
 
 {#each $history as historyItem, historyIndex}
-  <div class="mb-4" style={`color: ${$theme.foreground}`}>
+  <div class="mb-8" style={`color: ${$theme.foreground}`}>
     <div class="flex flex-col md:flex-row mb-2">
       <Ps1 />
 

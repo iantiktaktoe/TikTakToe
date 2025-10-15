@@ -10,7 +10,7 @@ export interface TeletypeState {
 }
 
 export interface TeletypeOptions {
-  speed?: number; // milliseconds per character (default: 25)
+  speed?: number; // milliseconds per character (default: 10)
   playSound?: boolean; // play typing sound (default: true)
   maxLength?: number; // skip animation if text exceeds this (default: 2000)
 }
@@ -63,7 +63,7 @@ export function createTeletype(
   text: string,
   options: TeletypeOptions = {}
 ): Writable<TeletypeState> {
-  const { speed = 25, playSound = true, maxLength = 2000 } = options;
+  const { speed = 10, playSound = true, maxLength = 2000 } = options;
 
   const store = writable<TeletypeState>({
     displayedText: '',

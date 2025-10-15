@@ -150,7 +150,8 @@ Just some of the clients I've had the opportunity to work with:
 Industries: Government, Finance, Pharma, Legal, Retail, Manufacturing, Education
 
 Type [CMD]'about'[/CMD] to learn more about my expertise.
-Type [CMD]'services'[/CMD] to see how I can help your organization.`;
+Type [CMD]'services'[/CMD] to see how I can help your organization.
+Type [CMD]'contact'[/CMD] to get in touch.`;
   },
   vi: () => `why use vi? try 'emacs'`,
   vim: () => `why use vim? try 'emacs'`,
