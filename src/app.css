@@ -39,7 +39,7 @@ main {
   position: relative;
 }
 
-/* CRT scanlines effect */
+/* CRT scanlines + green monitor gradient */
 main::before {
   content: "";
   position: absolute;
@@ -47,12 +47,19 @@ main::before {
   left: 0;
   right: 0;
   bottom: 0;
-  background: linear-gradient(
-    to bottom,
-    rgba(18, 16, 16, 0) 50%,
-    rgba(0, 0, 0, 0.08) 50%
-  );
-  background-size: 100% 4px;
+  background:
+    linear-gradient(
+      to bottom,
+      rgba(18, 16, 16, 0) 50%,
+      rgba(0, 0, 0, 0.08) 50%
+    ),
+    radial-gradient(
+      ellipse at center,
+      rgba(0, 255, 0, 0.03) 0%,
+      rgba(0, 255, 0, 0.01) 40%,
+      rgba(0, 0, 0, 0.1) 100%
+    );
+  background-size: 100% 4px, 100% 100%;
   pointer-events: none;
   z-index: 1;
 }

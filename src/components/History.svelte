@@ -6,7 +6,7 @@
   // Parse output text for styled command hints
   function parseOutput(text: string) {
     // Match all markup patterns
-    const parts = text.split(/(\[CMD\].*?\[\/CMD\]|\[DIM\].*?\[\/DIM\]|\[ARROW\])/g);
+    const parts = text.split(/(\[CMD\].*?\[\/CMD\]|\[DIM\].*?\[\/DIM\]|\[ARROW\]|\[TITLE\].*?\[\/TITLE\])/g);
     return parts.map((part, i) => {
       if (part.includes('[CMD]')) {
         return {
@@ -24,6 +24,12 @@
         return {
           text: '→',
           type: 'arrow',
+          key: i
+        };
+      } else if (part.includes('[TITLE]')) {
+        return {
+          text: part.replace(/\[TITLE\]|\[\/TITLE\]/g, ''),
+          type: 'title',
           key: i
         };
       }
@@ -57,6 +63,8 @@
             <span style={`opacity: 0.6; font-weight: bold;`}>{part.text}</span>
           {:else if part.type === 'arrow'}
             <span style={`color: ${$theme.green}; opacity: 0.7;`}>{part.text} </span>
+          {:else if part.type === 'title'}
+            <span style={`font-weight: 900; font-size: 1.1em; color: ${$theme.green};`}>{part.text}</span>
           {:else}
             {part.text}
           {/if}

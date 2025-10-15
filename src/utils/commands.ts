@@ -30,7 +30,7 @@ export const commands: Record<string, (args: string[]) => Promise<string> | stri
   hostname: () => hostname,
   whoami: () => "guest",
   date: () => new Date().toLocaleString(),
-  about: () => `Senior AI Engineer & Architect
+  about: () => `[TITLE]Senior AI Engineer & Architect[/TITLE]
 
 Senior engineer supporting CTOs with hands-on delivery and architecture.
 Security-cleared; enterprise-grade focus on reliability, observability, and cost control.
@@ -44,10 +44,10 @@ Technical Stack:
 
 Approach: Start with the problem. Ship small. Measure. Scale.
 
-Type 'services' to see what I can help with.
-Type 'skills' for detailed technical capabilities.
-Type 'contact' to get in touch.`,
-  skills: () => `Technical Skills & Expertise
+Type [CMD]'services'[/CMD] to see what I can help with.
+Type [CMD]'skills'[/CMD] for detailed technical capabilities.
+Type [CMD]'contact'[/CMD] to get in touch.`,
+  skills: () => `[TITLE]Technical Skills & Expertise[/TITLE]
 
 AI Engineering:
   • Production RAG & C-RAG pipelines with hybrid search
@@ -81,7 +81,7 @@ Industries: Government, Finance, Pharma, Legal, Retail
 Type [CMD]'about'[/CMD] to learn more about me.
 Type [CMD]'services'[/CMD] to see what I can help with.
 Type [CMD]'contact'[/CMD] to get in touch.`,
-  services: () => `Services & Solutions
+  services: () => `[TITLE]Services & Solutions[/TITLE]
 
 AI Engineering
   • RAG/C-RAG pipelines & hybrid search systems
@@ -106,11 +106,11 @@ Architecture & Advisory
   • Team enablement on AI integration
   • CTO-level strategic guidance
 
-Type 'about' to learn more about me.
-Type 'skills' for detailed technical capabilities.
-Type 'contact' to discuss your project.`,
+Type [CMD]'about'[/CMD] to learn more about me.
+Type [CMD]'skills'[/CMD] for detailed technical capabilities.
+Type [CMD]'contact'[/CMD] to discuss your project.`,
   contact: () => {
-    return `Ian Bell
+    return `[TITLE]Ian Bell[/TITLE]
 Senior AI Engineer & Architect
 
 Email: ian@tiktaktoe.co.uk
@@ -120,7 +120,7 @@ Location: Warwickshire, UK — Remote first
 
 Let's discuss your complex build requirements.
 
-Type 'email' to send me an email`;
+Type [CMD]'email'[/CMD] to send me an email`;
   },
   vi: () => `why use vi? try 'emacs'`,
   vim: () => `why use vim? try 'emacs'`,
