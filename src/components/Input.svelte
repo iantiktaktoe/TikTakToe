@@ -92,7 +92,7 @@
   }}
 />
 
-<div class="flex w-full">
+<div class="flex w-full items-center">
   <p class="visible md:hidden">❯</p>
 
   <input
@@ -106,4 +106,5 @@
     on:keydown={handleKeyDown}
     bind:this={input}
   />
+  <span class="blinking-cursor ml-1" style={`color: ${$theme.foreground}`}>▋</span>
 </div>

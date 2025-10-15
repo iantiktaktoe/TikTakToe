@@ -20,11 +20,13 @@
   class="h-full border-2 rounded-md p-4 overflow-auto text-xs sm:text-sm md:text-base"
   style={`background-color: ${$theme.background}; color: ${$theme.foreground}; border-color: ${$theme.green};`}
 >
-  <History />
+  <div style="position: relative; z-index: 10;">
+    <History />
 
-  <div class="flex flex-col md:flex-row">
-    <Ps1 />
+    <div class="flex flex-col md:flex-row mt-2">
+      <Ps1 />
 
-    <Input />
+      <Input />
+    </div>
   </div>
 </main>

@@ -9,13 +9,9 @@ const hostname = window.location.hostname;
 export const commands: Record<string, (args: string[]) => Promise<string> | string> = {
   help: () => {
     const categories = {
-      About: ["about", "skills", "services", "banner"],
-      Contact: ["email", "contact", "repo"],
-      System: ["help", "clear", "date", "exit"],
-      Productivity: ["todo", "weather"],
-      Customization: ["theme"],
-      Network: ["curl", "hostname", "whoami"],
-      Fun: ["echo", "sudo", "vi", "vim", "emacs"],
+      About: ["about", "skills", "services"],
+      Contact: ["contact", "email"],
+      System: ["help", "clear", "cls", "banner"],
     };
 
     let output = "Available commands:\n\n";
@@ -26,8 +22,7 @@ export const commands: Record<string, (args: string[]) => Promise<string> | stri
       output += "\n\n";
     }
 
-    output +=
-      'Type "[command] help" or "[command]" without args for more info.';
+    output += "For more information, type a command name.";
 
     return output;
   },
@@ -179,6 +174,11 @@ Let's discuss your complex build requirements.`;
 
     return "";
   },
+  cls: () => {
+    history.set([]);
+
+    return "";
+  },
   email: () => {
     window.open(`mailto:${packageJson.author.email}`);
 
@@ -215,18 +215,18 @@ Let's discuss your complex build requirements.`;
     }
   },
   banner: () => `
-██╗ █████╗ ███╗   ██╗
-██║██╔══██╗████╗  ██║
-██║███████║██╔██╗ ██║
-██║██╔══██║██║╚██╗██║
-██║██║  ██║██║ ╚████║
-╚═╝╚═╝  ╚═╝╚═╝  ╚═══╝
+████████╗██╗██╗  ██╗████████╗ █████╗ ██╗  ██╗████████╗ ██████╗ ███████╗
+╚══██╔══╝██║██║ ██╔╝╚══██╔══╝██╔══██╗██║ ██╔╝╚══██╔══╝██╔═══██╗██╔════╝
+   ██║   ██║█████╔╝    ██║   ███████║█████╔╝    ██║   ██║   ██║█████╗
+   ██║   ██║██╔═██╗    ██║   ██╔══██║██╔═██╗    ██║   ██║   ██║██╔══╝
+   ██║   ██║██║  ██╗   ██║   ██║  ██║██║  ██╗   ██║   ╚██████╔╝███████╗
+   ╚═╝   ╚═╝╚═╝  ╚═╝   ╚═╝   ╚═╝  ╚═╝╚═╝  ╚═╝   ╚═╝    ╚═════╝ ╚══════╝
 
 Senior AI Engineer & Architect
 25 years building systems. Shipping AI that works.
 
 Type 'help' to see all available commands.
-Type 'about' to learn more about me.
+Type 'about' to learn more.
 `,
   todo: (args: string[]) => {
     const usage = `Usage: todo [command] [args]

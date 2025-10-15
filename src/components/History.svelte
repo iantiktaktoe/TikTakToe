@@ -5,7 +5,7 @@
 </script>
 
 {#each $history as { command, outputs }}
-  <div style={`color: ${$theme.foreground}`}>
+  <div class="mb-4" style={`color: ${$theme.foreground}`}>
     <div class="flex flex-col md:flex-row">
       <Ps1 />
 
@@ -17,7 +17,7 @@
     </div>
 
     {#each outputs as output}
-      <p class="whitespace-pre">
+      <p class="whitespace-pre mb-2">
         {output}
       </p>
     {/each}
