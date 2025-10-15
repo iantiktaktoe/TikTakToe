@@ -12,6 +12,7 @@ export const commands: Record<string, (args: string[]) => Promise<string> | stri
       About: ["about", "skills", "services"],
       Contact: ["contact", "email"],
       System: ["help", "clear", "cls", "banner", "home"],
+      "Style Demos": ["demo1", "demo2", "demo3"],
     };
 
     let output = "Available commands:\n\n";
@@ -77,9 +78,9 @@ Recent Work:
 
 Industries: Government, Finance, Pharma, Legal, Retail
 
-Type 'about' to learn more about me.
-Type 'services' to see what I can help with.
-Type 'contact' to get in touch.`,
+Type [CMD]'about'[/CMD] to learn more about me.
+Type [CMD]'services'[/CMD] to see what I can help with.
+Type [CMD]'contact'[/CMD] to get in touch.`,
   services: () => `Services & Solutions
 
 AI Engineering
@@ -194,6 +195,33 @@ Type 'email' to send me an email`;
 
     return commands.banner();
   },
+  demo1: () => `OPTION 1: Colored Commands (Yellow/Bold)
+
+This is sample text with navigation hints.
+
+Type [CMD]'about'[/CMD] to learn more about me.
+Type [CMD]'skills'[/CMD] for detailed technical capabilities.
+Type [CMD]'contact'[/CMD] to get in touch.
+
+Commands are highlighted in yellow and bold.`,
+  demo2: () => `OPTION 2: Dimmed Text with Bold Commands
+
+This is sample text with navigation hints.
+
+Type [DIM]'about'[/DIM] to learn more about me.
+Type [DIM]'skills'[/DIM] for detailed technical capabilities.
+Type [DIM]'contact'[/DIM] to get in touch.
+
+Helper text is dimmed, commands are bold/bright.`,
+  demo3: () => `OPTION 3: Arrow Prefix
+
+This is sample text with navigation hints.
+
+[ARROW] Type 'about' to learn more about me.
+[ARROW] Type 'skills' for detailed technical capabilities.
+[ARROW] Type 'contact' to get in touch.
+
+Each hint has a subtle arrow prefix.`,
   email: () => {
     window.location.href = `mailto:${packageJson.author.email}`;
 
