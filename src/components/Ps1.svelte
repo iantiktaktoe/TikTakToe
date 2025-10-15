@@ -7,5 +7,5 @@
   <span style={`color: ${$theme.yellow};`}>guest</span>
   <span style={`color: ${$theme.white}`}>@</span>
   <span style={`color: ${$theme.green}`}>{hostname}</span>
-  <span style={`color: ${$theme.white}`}>:~$</span>
+  <span style={`color: ${$theme.white}`}>:</span>
 </h1>

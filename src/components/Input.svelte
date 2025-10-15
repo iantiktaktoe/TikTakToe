@@ -97,17 +97,20 @@
 
 <div class="flex items-center">
   <p class="visible md:hidden">❯</p>
+  {#if command.length === 0}
+    <span class="blinking-cursor" style="color: #00ff00; font-weight: bold;">█</span>
+  {/if}
 
   <input
     id="command-input"
     name="command-input"
     aria-label="Command input"
-    class="flex-1 px-2 bg-transparent outline-none"
+    class="bg-transparent outline-none"
+    style={`color: ${$theme.foreground}; caret-color: transparent; width: ${command.length > 0 ? command.length + 1 : 1}ch; ${command.length > 0 ? 'background-color: #00ff00; color: #000000; padding: 2px 4px;' : ''}`}
     type="text"
-    style={`color: ${$theme.foreground}`}
     bind:value={command}
     on:keydown={handleKeyDown}
+    on:blur={() => input.focus()}
     bind:this={input}
   />
-  <span class="blinking-cursor" style={`color: ${$theme.foreground}`}>▋</span>
 </div>
