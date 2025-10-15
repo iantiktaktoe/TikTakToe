@@ -95,19 +95,19 @@
   }}
 />
 
-<div class="flex w-full items-center">
+<div class="flex items-center">
   <p class="visible md:hidden">❯</p>
 
   <input
     id="command-input"
     name="command-input"
     aria-label="Command input"
-    class="w-full px-2 bg-transparent outline-none"
+    class="flex-1 px-2 bg-transparent outline-none"
     type="text"
     style={`color: ${$theme.foreground}`}
     bind:value={command}
     on:keydown={handleKeyDown}
     bind:this={input}
   />
-  <span class="blinking-cursor" style={`color: ${$theme.foreground}; margin-left: -0.5rem;`}>▋</span>
+  <span class="blinking-cursor" style={`color: ${$theme.foreground}`}>▋</span>
 </div>
