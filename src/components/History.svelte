@@ -77,7 +77,7 @@
         />
       {:else}
         {@const parsedParts = parseOutput(output)}
-        <p class="whitespace-pre mb-2">
+        <p class="whitespace-pre mb-2" style="word-wrap: break-word; overflow-wrap: break-word; max-width: 100%;">
           {#each parsedParts as part, index}
             {#if part.type === 'command'}
               <span style={`color: ${$theme.yellow}; font-weight: bold;`}>{part.text}</span>
@@ -96,7 +96,7 @@
               }}
               {@const prevPart = findPrevNonWhitespace()}
               {@const marginTop = prevPart && prevPart.type === 'title' ? '-1.25rem' : '1rem'}
-              <span style={`font-weight: 900; font-size: 1.1em; color: ${$theme.green}; display: block; margin-top: ${marginTop};`}>{part.text}</span>
+              <span style={`font-weight: 900; font-size: 1.1em; color: ${$theme.green}; display: block; margin-top: ${marginTop}; word-wrap: break-word; overflow-wrap: break-word;`}>{part.text}</span>
             {:else}
               {part.text}
             {/if}
