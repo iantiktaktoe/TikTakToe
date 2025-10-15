@@ -111,7 +111,9 @@ Mobile: 07971 235 265
 LinkedIn: https://www.linkedin.com/in/ianbellprofile/
 Location: Warwickshire, UK — Remote first
 
-Let's discuss your complex build requirements.`;
+Let's discuss your complex build requirements.
+
+Type 'email' to send me an email`;
   },
   vi: () => `why use vi? try 'emacs'`,
   vim: () => `why use vim? try 'emacs'`,
