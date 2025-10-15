@@ -262,11 +262,11 @@ Each hint has a subtle arrow prefix.`,
    ██║   ██║██║  ██╗   ██║   ██║  ██║██║  ██╗   ██║   ╚██████╔╝███████╗
    ╚═╝   ╚═╝╚═╝  ╚═╝   ╚═╝   ╚═╝  ╚═╝╚═╝  ╚═╝   ╚═╝    ╚═════╝ ╚══════╝
 
-Senior AI Engineer & Architect
-25 years building systems. Shipping AI that works.
+[TITLE]Senior AI Engineer & Architect[/TITLE]
+[TITLE]25 years building systems. Shipping AI that works.[/TITLE]
 
-Type 'help' to see all available commands.
-Type 'about' to learn more.
+Type [CMD]'help'[/CMD] to see all available commands.
+Type [CMD]'about'[/CMD] to learn more.
 `,
   todo: (args: string[]) => {
     const usage = `Usage: todo [command] [args]

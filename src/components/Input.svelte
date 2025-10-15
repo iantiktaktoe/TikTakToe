@@ -105,8 +105,8 @@
     id="command-input"
     name="command-input"
     aria-label="Command input"
-    class="bg-transparent outline-none"
-    style={`color: ${$theme.foreground}; caret-color: transparent; width: ${command.length > 0 ? command.length + 1 : 1}ch; ${command.length > 0 ? 'background-color: #00ff00; color: #000000; padding: 2px 4px;' : ''}`}
+    class="bg-transparent outline-none font-bold"
+    style={`color: ${$theme.foreground}; caret-color: transparent; width: ${command.length > 0 ? command.length + 1 : 1}ch; vertical-align: baseline; line-height: 1; ${command.length > 0 ? 'background-color: #00ff00; color: #000000; padding: 2px 4px;' : ''}`}
     type="text"
     bind:value={command}
     on:keydown={handleKeyDown}
