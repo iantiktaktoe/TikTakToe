@@ -106,5 +106,5 @@
     on:keydown={handleKeyDown}
     bind:this={input}
   />
-  <span class="blinking-cursor ml-1" style={`color: ${$theme.foreground}`}>▋</span>
+  <span class="blinking-cursor" style={`color: ${$theme.foreground}; margin-left: -0.5rem;`}>▋</span>
 </div>

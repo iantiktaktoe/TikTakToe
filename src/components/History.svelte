@@ -64,7 +64,7 @@
           {:else if part.type === 'arrow'}
             <span style={`color: ${$theme.green}; opacity: 0.7;`}>{part.text} </span>
           {:else if part.type === 'title'}
-            <span style={`font-weight: 900; font-size: 1.1em; color: ${$theme.green};`}>{part.text}</span>
+            <span style={`font-weight: 900; font-size: 1.1em; color: ${$theme.green}; display: block; margin-top: 1rem;`}>{part.text}</span>
           {:else}
             {part.text}
           {/if}
