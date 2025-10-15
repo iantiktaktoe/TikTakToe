@@ -75,7 +75,11 @@ Recent Work:
   • On-premises LLM deployments
   • Digital employee (agent) systems
 
-Industries: Government, Finance, Pharma, Legal, Retail`,
+Industries: Government, Finance, Pharma, Legal, Retail
+
+Type 'about' to learn more about me.
+Type 'services' to see what I can help with.
+Type 'contact' to get in touch.`,
   services: () => `Services & Solutions
 
 AI Engineering
@@ -101,6 +105,8 @@ Architecture & Advisory
   • Team enablement on AI integration
   • CTO-level strategic guidance
 
+Type 'about' to learn more about me.
+Type 'skills' for detailed technical capabilities.
 Type 'contact' to discuss your project.`,
   contact: () => {
     return `Ian Bell
