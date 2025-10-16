@@ -18,7 +18,7 @@ export const commands: Record<string, (args: string[]) => Promise<string> | stri
 
     for (const [category, cmds] of Object.entries(categories)) {
       output += `${category}:\n`;
-      output += cmds.map((cmd) => `  ${cmd}`).join("\n");
+      output += cmds.map((cmd) => `  [CMD]${cmd}[/CMD]`).join("\n");
       output += "\n\n";
     }
 

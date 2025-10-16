@@ -3,6 +3,18 @@
   import { theme } from '../stores/theme';
   import Ps1 from './Ps1.svelte';
   import TeletypeOutput from './TeletypeOutput.svelte';
+  import { commands } from '../utils/commands';
+  import { track } from '../utils/tracking';
+
+  // Filter output based on screen size
+  function filterOutputForDevice(output: string): string {
+    const isMobile = window.innerWidth <= 640;
+    if (isMobile) {
+      return output.replace(/\[DESKTOP\].*?\[\/DESKTOP\]/gs, '');
+    } else {
+      return output.replace(/\[MOBILE\].*?\[\/MOBILE\]/gs, '');
+    }
+  }
 
   // Parse output text for styled command hints
   function parseOutput(text: string) {
@@ -93,15 +105,50 @@
     });
   }
 
-  function handleCommandClick(commandText: string) {
+  async function handleCommandClick(commandText: string) {
     // Strip quotes if present (e.g., 'help' -> help)
     const cleanCommand = commandText.replace(/^['"]|['"]$/g, '');
 
-    // Trigger command execution by simulating input submission
-    const input = document.getElementById('command-input') as HTMLInputElement;
-    if (input) {
-      input.value = cleanCommand;
-      input.dispatchEvent(new KeyboardEvent('keydown', { key: 'Enter', bubbles: true }));
+    const [commandName, ...args] = cleanCommand.split(' ');
+    const commandNameLower = commandName.toLowerCase();
+
+    if (import.meta.env.VITE_TRACKING_ENABLED === 'true') {
+      track(commandNameLower, ...args);
+    }
+
+    const commandFunction = commands[commandNameLower];
+
+    if (commandFunction) {
+      if (commandNameLower === 'reboot') {
+        await commandFunction(args);
+        return;
+      }
+
+      const rawOutput = await commandFunction(args);
+      const output = filterOutputForDevice(rawOutput);
+
+      if (commandNameLower !== 'clear' && commandNameLower !== 'cls' && commandNameLower !== 'home') {
+        $history = [...$history, {
+          command: cleanCommand,
+          outputs: [output],
+          isTyping: true,
+          teletypeIndex: 0
+        }];
+      } else if (output) {
+        $history = [{
+          command: commandNameLower,
+          outputs: [filterOutputForDevice(output)],
+          isTyping: false
+        }];
+      }
+    } else {
+      const output = `${commandNameLower}: command not found`;
+      $history = [...$history, {
+        command: cleanCommand,
+        outputs: [output],
+        isTyping: true,
+        teletypeIndex: 0
+      }];
     }
   }
 </script>

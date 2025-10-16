@@ -4,8 +4,21 @@
 <script lang="ts">
   import { onMount, onDestroy, afterUpdate } from 'svelte';
   import { theme } from '../stores/theme';
+  import { history } from '../stores/history';
   import { createTeletype, type TeletypeState } from '../utils/teletype';
+  import { commands } from '../utils/commands';
+  import { track } from '../utils/tracking';
   import type { Writable } from 'svelte/store';
+
+  // Filter output based on screen size
+  function filterOutputForDevice(output: string): string {
+    const isMobile = window.innerWidth <= 640;
+    if (isMobile) {
+      return output.replace(/\[DESKTOP\].*?\[\/DESKTOP\]/gs, '');
+    } else {
+      return output.replace(/\[MOBILE\].*?\[\/MOBILE\]/gs, '');
+    }
+  }
 
   export let output: string;
   export let onComplete: () => void;
@@ -138,15 +151,50 @@
 
   $: parsedParts = parseOutput(state.displayedText);
 
-  function handleCommandClick(commandText: string) {
+  async function handleCommandClick(commandText: string) {
     // Strip quotes if present (e.g., 'help' -> help)
     const cleanCommand = commandText.replace(/^['"]|['"]$/g, '');
 
-    // Trigger command execution by simulating input submission
-    const input = document.getElementById('command-input') as HTMLInputElement;
-    if (input) {
-      input.value = cleanCommand;
-      input.dispatchEvent(new KeyboardEvent('keydown', { key: 'Enter', bubbles: true }));
+    const [commandName, ...args] = cleanCommand.split(' ');
+    const commandNameLower = commandName.toLowerCase();
+
+    if (import.meta.env.VITE_TRACKING_ENABLED === 'true') {
+      track(commandNameLower, ...args);
+    }
+
+    const commandFunction = commands[commandNameLower];
+
+    if (commandFunction) {
+      if (commandNameLower === 'reboot') {
+        await commandFunction(args);
+        return;
+      }
+
+      const rawOutput = await commandFunction(args);
+      const output = filterOutputForDevice(rawOutput);
+
+      if (commandNameLower !== 'clear' && commandNameLower !== 'cls' && commandNameLower !== 'home') {
+        history.update(h => [...h, {
+          command: cleanCommand,
+          outputs: [output],
+          isTyping: true,
+          teletypeIndex: 0
+        }]);
+      } else if (output) {
+        history.set([{
+          command: commandNameLower,
+          outputs: [filterOutputForDevice(output)],
+          isTyping: false
+        }]);
+      }
+    } else {
+      const output = `${commandNameLower}: command not found`;
+      history.update(h => [...h, {
+        command: cleanCommand,
+        outputs: [output],
+        isTyping: true,
+        teletypeIndex: 0
+      }]);
     }
   }
 </script>
