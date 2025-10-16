@@ -126,7 +126,7 @@
               {@const marginTop = prevPart && prevPart.type === 'title' ? '0.25rem' : '1rem'}
               <span style={`font-weight: 900; font-size: 1.1em; color: ${$theme.green}; display: block; margin-top: ${marginTop}; margin-bottom: 0rem; word-wrap: break-word; overflow-wrap: break-word;`}>{part.text}</span
             >{:else if part.type === 'heading'}
-              <span style={`font-weight: bold;`}>{part.text}</span
+              <span style={`font-weight: bold; color: ${$theme.yellow}; opacity: 0.6;`}>{part.text}</span
             >{:else if part.type === 'ascii'}
               <span class="ascii-art">{part.text}</span>
             {:else if part.type === 'para'}

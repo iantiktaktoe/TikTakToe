@@ -45,7 +45,8 @@ I turn vibe code into maintainable systems.
 [MOBILE][HEADING]Technical Stack:[/HEADING]
 LLMs (RAG, fine-tuning), vector DBs, agents, knowledge graphs, .NET/C#, React, Azure, Docker, CI/CD, 25 years building systems across gov, finance, pharma, legal, retail.[/MOBILE]
 
-Approach: Start with the problem. Ship small. Measure. Scale.
+[DESKTOP][HEADING]Approach:[/HEADING]
+Start with the problem. Ship small. Measure. Scale.
 
 Type [CMD]'services'[/CMD] to see what I can help with.
 Type [CMD]'skills'[/CMD] for detailed technical capabilities.
@@ -97,38 +98,38 @@ Type [CMD]'services'[/CMD] to see what I can help with.
 Type [CMD]'clients'[/CMD] to see who I've worked with.
 Type [CMD]'contact'[/CMD] to get in touch.`,
   services: () => `[TITLE]Services & Solutions[/TITLE]
-[DESKTOP][HEADING]AI Engineering[/HEADING]
+[DESKTOP][HEADING]AI Engineering:[/HEADING]
   • RAG/C-RAG pipelines & hybrid search systems
   • LLM fine-tuning (LoRA/QLoRA) and evaluation
   • Agent orchestration & workflow automation
   • Vector databases & knowledge graph integration
 
-[HEADING]Full-Stack Development[/HEADING]
+[HEADING]Full-Stack Development:[/HEADING]
   • APIs, integrations, event-driven systems
   • Legacy modernisation & performance optimisation
   • Clean architecture, TDD, CI/CD, SLOs
   • .NET/C#, React, Azure stack
 
-[HEADING]Digital Employees (AI Agents)[/HEADING]
+[HEADING]Digital Employees (AI Agents):[/HEADING]
   • Role design, tool access, and guardrails
   • Human-in-the-loop workflows & audit trails
   • Observability, cost tracking, and ROI measurement
 
-[HEADING]Architecture & Advisory[/HEADING]
+[HEADING]Architecture & Advisory:[/HEADING]
   • System design reviews and recommendations
   • PoC to Production pathways and runbooks
   • Team enablement on AI integration
   • CTO-level strategic guidance[/DESKTOP]
-[MOBILE][HEADING]AI Engineering[/HEADING]
+[MOBILE][HEADING]AI Engineering:[/HEADING]
 RAG/C-RAG pipelines & hybrid search systems, LLM fine-tuning (LoRA/QLoRA) and evaluation, agent orchestration & workflow automation, vector databases & knowledge graph integration.
 
-[HEADING]Full-Stack Development[/HEADING]
+[HEADING]Full-Stack Development:[/HEADING]
 APIs, integrations, event-driven systems, legacy modernisation & performance optimisation, clean architecture, TDD, CI/CD, SLOs, .NET/C#, React, Azure stack.
 
-[HEADING]Digital Employees (AI Agents)[/HEADING]
+[HEADING]Digital Employees (AI Agents):[/HEADING]
 Role design, tool access, and guardrails, human-in-the-loop workflows & audit trails, observability, cost tracking, and ROI measurement.
 
-[HEADING]Architecture & Advisory[/HEADING]
+[HEADING]Architecture & Advisory:[/HEADING]
 System design reviews and recommendations, PoC to Production pathways and runbooks, team enablement on AI integration, CTO-level strategic guidance.[/MOBILE]
 
 Type [CMD]'about'[/CMD] to learn more about me.

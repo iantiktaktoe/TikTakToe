@@ -3,9 +3,9 @@
   let hostname = window.location.hostname;
 </script>
 
-<h1 class="font-bold flex" style="opacity: 0.6;">
+<p class="font-bold flex" style="opacity: 0.6; font-size: 1rem;">
   <span style={`color: ${$theme.yellow};`}>guest</span>
   <span style={`color: ${$theme.white}`}>@</span>
   <span style={`color: ${$theme.green}`}>{hostname}</span>
   <span style={`color: ${$theme.white}`}>:</span>
-</h1>
+</p>
