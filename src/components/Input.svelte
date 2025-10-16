@@ -5,9 +5,19 @@
   import { bootComplete } from '../stores/boot';
   import { commands } from '../utils/commands';
   import { track } from '../utils/tracking';
+  import {
+    isProfane,
+    incrementProfanityCount,
+    resetProfanityCount,
+    isMaxOffenseReached,
+    getSoapBarArt,
+    shouldShowBSOD
+  } from '../utils/profanity';
+  import BSOD from './BSOD.svelte';
 
   let command = '';
   let historyIndex = -1;
+  let showBSOD = false;
 
   let input: HTMLInputElement;
 
@@ -102,6 +112,18 @@
     }
   }
 
+  const handleBSODComplete = () => {
+    // Reset everything and trigger reboot immediately
+    resetProfanityCount();
+
+    // Trigger reboot sequence before hiding BSOD to avoid showing terminal
+    const rebootCommand = commands['reboot'] as () => void;
+    if (rebootCommand) {
+      rebootCommand([]);
+    }
+    // Note: showBSOD will be hidden automatically when page reloads
+  };
+
   const handleSubmit = async (event?: Event) => {
     if (event) {
       event.preventDefault();
@@ -110,6 +132,30 @@
     // Don't process empty commands
     if (!command.trim()) {
       return;
+    }
+
+    // Check for profanity before processing command
+    if (isProfane(command.trim())) {
+      const offenseCount = incrementProfanityCount();
+
+      if (offenseCount >= 4) {
+        // Fourth offense - show full-screen BSOD
+        command = '';
+        showBSOD = true;
+        return;
+      } else {
+        // First, second, or third offense - soap bar (with faster teletype speed)
+        $history = [...$history, {
+          command: command,
+          outputs: [getSoapBarArt()],
+          isTyping: true,
+          teletypeIndex: 0,
+          fastTeletype: true  // Flag for faster teletype speed
+        }];
+
+        command = '';
+        return;
+      }
     }
 
     await executeCommand(command);
@@ -178,3 +224,7 @@
     bind:this={input}
   />
 </form>
+
+{#if showBSOD}
+  <BSOD onComplete={handleBSODComplete} />
+{/if}

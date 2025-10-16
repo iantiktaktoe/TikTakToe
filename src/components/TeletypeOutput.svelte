@@ -8,6 +8,7 @@
   import { createTeletype, type TeletypeState } from '../utils/teletype';
   import { commands } from '../utils/commands';
   import { track } from '../utils/tracking';
+  import ProgressBar from './ProgressBar.svelte';
   import type { Writable } from 'svelte/store';
 
   // Filter output based on screen size
@@ -22,6 +23,7 @@
 
   export let output: string;
   export let onComplete: () => void;
+  export let fastMode: boolean = false;  // For faster teletype (e.g., soap bar)
 
   let teletypeStore: (Writable<TeletypeState> & { skip?: () => void }) | null = null;
   let state: TeletypeState = {
@@ -34,7 +36,9 @@
   let outputElement: HTMLParagraphElement;
 
   onMount(() => {
-    teletypeStore = createTeletype(output, { playSound: false });
+    // Use faster speed (2ms) for soap bar, normal speed (10ms) for regular output
+    const speed = fastMode ? 2 : 10;
+    teletypeStore = createTeletype(output, { playSound: false, speed });
 
     unsubscribe = teletypeStore.subscribe((newState) => {
       state = newState;
@@ -81,7 +85,7 @@
     text = text.replace(/\[DESKTOP\]/g, '').replace(/\[\/DESKTOP\]/g, '');
     text = text.replace(/\[MOBILE\]/g, '').replace(/\[\/MOBILE\]/g, '');
 
-    const parts = text.split(/(\[CMD\].*?\[\/CMD\]|\[DIM\].*?\[\/DIM\]|\[ARROW\]|\[TITLE\].*?\[\/TITLE\]|\[HEADING\].*?\[\/HEADING\]|\[ASCII\].*?\[\/ASCII\]|\[PARA\].*?\[\/PARA\]|\[LIST\].*?\[\/LIST\]|\[LINK\].*?\[\/LINK\])/gs);
+    const parts = text.split(/(\[CMD\].*?\[\/CMD\]|\[DIM\].*?\[\/DIM\]|\[ARROW\]|\[TITLE\].*?\[\/TITLE\]|\[HEADING\].*?\[\/HEADING\]|\[ASCII\].*?\[\/ASCII\]|\[PARA\].*?\[\/PARA\]|\[LIST\].*?\[\/LIST\]|\[LINK\].*?\[\/LINK\]|\[PROGRESS\]|\[BSOD\].*?\[\/BSOD\]|\[GLITCH\].*?\[\/GLITCH\])/gs);
     return parts.map((part, i) => {
       if (part.includes('[CMD]')) {
         return {
@@ -138,6 +142,24 @@
         return {
           text: part.replace(/\[LIST\]|\[\/LIST\]/g, ''),
           type: 'list',
+          key: i
+        };
+      } else if (part === '[PROGRESS]') {
+        return {
+          text: '',
+          type: 'progress',
+          key: i
+        };
+      } else if (part.includes('[BSOD]')) {
+        return {
+          text: part.replace(/\[BSOD\]|\[\/BSOD\]/g, ''),
+          type: 'bsod',
+          key: i
+        };
+      } else if (part.includes('[GLITCH]')) {
+        return {
+          text: part.replace(/\[GLITCH\]|\[\/GLITCH\]/g, ''),
+          type: 'glitch',
           key: i
         };
       }
@@ -253,6 +275,12 @@
       <span class="paragraph-text">{part.text}</span>
     {:else if part.type === 'list'}
       <span class="client-list">{part.text}</span>
+    {:else if part.type === 'progress'}
+      <ProgressBar />
+    {:else if part.type === 'bsod'}
+      <span style={`color: #ffffff; background-color: #0000aa; display: block; padding: 1rem; font-family: 'Courier New', monospace; white-space: pre; line-height: 1.2;`}>{part.text}</span>
+    {:else if part.type === 'glitch'}
+      <span style={`color: ${$theme.red}; font-weight: bold; display: block; animation: glitch 0.3s infinite; letter-spacing: 2px;`}>{part.text}</span>
     {:else}
       {part.text}
     {/if}

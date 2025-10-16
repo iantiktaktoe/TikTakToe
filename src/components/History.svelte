@@ -3,6 +3,7 @@
   import { theme } from '../stores/theme';
   import Ps1 from './Ps1.svelte';
   import TeletypeOutput from './TeletypeOutput.svelte';
+  import ProgressBar from './ProgressBar.svelte';
   import { commands } from '../utils/commands';
   import { track } from '../utils/tracking';
 
@@ -22,8 +23,8 @@
     text = text.replace(/\[DESKTOP\]/g, '').replace(/\[\/DESKTOP\]/g, '');
     text = text.replace(/\[MOBILE\]/g, '').replace(/\[\/MOBILE\]/g, '');
 
-    // Match all markup patterns including ASCII, PARA, LIST, HEADING, and LINK
-    const parts = text.split(/(\[CMD\].*?\[\/CMD\]|\[DIM\].*?\[\/DIM\]|\[ARROW\]|\[TITLE\].*?\[\/TITLE\]|\[HEADING\].*?\[\/HEADING\]|\[ASCII\].*?\[\/ASCII\]|\[PARA\].*?\[\/PARA\]|\[LIST\].*?\[\/LIST\]|\[LINK\].*?\[\/LINK\])/gs);
+    // Match all markup patterns including ASCII, PARA, LIST, HEADING, LINK, PROGRESS, BSOD, and GLITCH
+    const parts = text.split(/(\[CMD\].*?\[\/CMD\]|\[DIM\].*?\[\/DIM\]|\[ARROW\]|\[TITLE\].*?\[\/TITLE\]|\[HEADING\].*?\[\/HEADING\]|\[ASCII\].*?\[\/ASCII\]|\[PARA\].*?\[\/PARA\]|\[LIST\].*?\[\/LIST\]|\[LINK\].*?\[\/LINK\]|\[PROGRESS\]|\[BSOD\].*?\[\/BSOD\]|\[GLITCH\].*?\[\/GLITCH\])/gs);
     return parts.map((part, i) => {
       if (part.includes('[CMD]')) {
         return {
@@ -80,6 +81,24 @@
         return {
           text: part.replace(/\[LIST\]|\[\/LIST\]/g, ''),
           type: 'list',
+          key: i
+        };
+      } else if (part === '[PROGRESS]') {
+        return {
+          text: '',
+          type: 'progress',
+          key: i
+        };
+      } else if (part.includes('[BSOD]')) {
+        return {
+          text: part.replace(/\[BSOD\]|\[\/BSOD\]/g, ''),
+          type: 'bsod',
+          key: i
+        };
+      } else if (part.includes('[GLITCH]')) {
+        return {
+          text: part.replace(/\[GLITCH\]|\[\/GLITCH\]/g, ''),
+          type: 'glitch',
           key: i
         };
       }
@@ -181,6 +200,7 @@
         <TeletypeOutput
           {output}
           onComplete={() => handleTeletypeComplete(historyIndex)}
+          fastMode={historyItem.fastTeletype || false}
         />
       {:else}
         {@const parsedParts = parseOutput(output)}
@@ -227,6 +247,12 @@
               <span class="paragraph-text">{part.text}</span>
             {:else if part.type === 'list'}
               <span class="client-list">{part.text}</span>
+            {:else if part.type === 'progress'}
+              <ProgressBar />
+            {:else if part.type === 'bsod'}
+              <span style={`color: #ffffff; background-color: #0000aa; display: block; padding: 1rem; font-family: 'Courier New', monospace; white-space: pre; line-height: 1.2;`}>{part.text}</span>
+            {:else if part.type === 'glitch'}
+              <span style={`color: ${$theme.red}; font-weight: bold; display: block; animation: glitch 0.3s infinite; letter-spacing: 2px;`}>{part.text}</span>
             {:else}
               {part.text}
             {/if}
