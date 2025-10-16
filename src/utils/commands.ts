@@ -10,7 +10,7 @@ export const commands: Record<string, (args: string[]) => Promise<string> | stri
   help: () => {
     const categories = {
       About: ["about", "skills", "services", "clients"],
-      Contact: ["contact", "email"],
+      Contact: ["contact", "email", "linkedin"],
       System: ["help", "clear", "cls", "home"],
     };
 
@@ -229,6 +229,11 @@ Type [CMD]'contact'[/CMD] to get in touch.`;
     window.location.href = `mailto:${packageJson.author.email}`;
 
     return `Opening email client...`;
+  },
+  linkedin: () => {
+    window.open("https://www.linkedin.com/in/ianbellprofile/", "_blank");
+
+    return `Opening LinkedIn profile...`;
   },
   weather: async (args: string[]) => {
     const city = args.join("+");

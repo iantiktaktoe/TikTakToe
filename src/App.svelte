@@ -17,7 +17,7 @@
 </svelte:head>
 
 <main
-  class="h-full border-2 rounded-md p-1 sm:p-4 overflow-x-hidden overflow-y-auto text-xs sm:text-sm md:text-base break-words"
+  class="h-full border-2 rounded-md p-3 sm:p-4 overflow-x-hidden overflow-y-auto text-xs sm:text-sm md:text-base break-words"
   style={`background-color: ${$theme.background}; color: ${$theme.foreground}; border-color: ${$theme.green}; word-wrap: break-word; overflow-wrap: break-word;`}
 >
   <div style="position: relative; z-index: 10; max-width: 100%; overflow-wrap: break-word; word-wrap: break-word;">
