@@ -33,6 +33,10 @@
 
         <Input />
       </div>
+
+      <footer class="mt-8 pt-4 border-t opacity-40 text-center text-xs" style={`border-color: ${$theme.green}; color: ${$theme.foreground};`}>
+        <p>© {new Date().getFullYear()} All rights reserved TikTakToe (a trading name of Purple Ohm Ltd)</p>
+      </footer>
     </div>
   </main>
 {/if}
