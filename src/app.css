@@ -39,6 +39,7 @@ pre, code {
 .ascii-art {
   white-space: pre;
   display: block;
+  margin-bottom: -1rem;
 }
 
 .paragraph-text {
@@ -52,8 +53,8 @@ pre, code {
 @media (max-width: 640px) {
   /* ASCII art smaller on mobile to fit screen */
   .ascii-art {
-    font-size: 0.5rem;
-    line-height: 1.1;
+    font-size: 0.57rem;
+    line-height: 1.4;
     letter-spacing: -0.05em;
   }
 
