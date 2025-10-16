@@ -59,8 +59,33 @@
     }
   }
 
+  function playBeep() {
+    try {
+      const audioContext = new (window.AudioContext || (window as any).webkitAudioContext)();
+      const oscillator = audioContext.createOscillator();
+      const gainNode = audioContext.createGain();
+
+      oscillator.connect(gainNode);
+      gainNode.connect(audioContext.destination);
+
+      // Set beep frequency and type
+      oscillator.frequency.value = 800; // 800 Hz
+      oscillator.type = 'sine';
+
+      // Set volume
+      gainNode.gain.value = 0.3;
+
+      // Play beep for 100ms
+      oscillator.start(audioContext.currentTime);
+      oscillator.stop(audioContext.currentTime + 0.1);
+    } catch (e) {
+      console.warn('Audio beep failed:', e);
+    }
+  }
+
   function finishBoot() {
     stopBootSound();
+    playBeep();
     setTimeout(() => {
       bootComplete.set(true);
     }, 500);

@@ -69,7 +69,7 @@ Type [CMD]'contact'[/CMD] to get in touch.`,
 
 [HEADING]Infrastructure & DevOps:[/HEADING]
   • Azure cloud platform
-  • Docker containersation
+  • Docker containerisation
   • CI/CD automation
   • Security best practices & compliance
   • System observability & monitoring
@@ -173,7 +173,7 @@ Just some of the clients I've had the opportunity to work with:
 • Crown Paints UK          • Marlins
 • Oxford University        • Hansa Biopharma
 • National Grid            • Staffordshire University
-• McCann                   • Halfax
+• McCann                   • Halifax
 • AstraZeneca              • Barclays Technology
 • Lloyds Bank              • Eversheds[/DESKTOP][MOBILE]• JCB
 • Police Mutual
@@ -216,7 +216,7 @@ Just some of the clients I've had the opportunity to work with:
 • Marlins
 • Hansa Biopharma
 • Staffordshire University
-• Halfax
+• Halifax
 • Barclays Technology
 • Eversheds[/MOBILE]
 
