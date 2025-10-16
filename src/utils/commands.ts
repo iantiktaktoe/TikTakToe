@@ -140,9 +140,9 @@ Type [CMD]'contact'[/CMD] to discuss your project.`,
     return `[TITLE]Ian Bell[/TITLE]
 Senior AI Engineer & Architect
 
-Email: ian@tiktaktoe.co.uk
-Mobile: 07971 235 265
-LinkedIn: https://www.linkedin.com/in/ianbellprofile/
+Email: [LINK]mailto:ian@tiktaktoe.co.uk|ian@tiktaktoe.co.uk[/LINK]
+Mobile: [LINK]tel:+447971235265|07971 235 265[/LINK]
+LinkedIn: [LINK]https://www.linkedin.com/in/ianbellprofile/|linkedin.com/in/ianbellprofile[/LINK]
 Location: Warwickshire, UK — Remote first
 
 Let's discuss your complex build requirements.

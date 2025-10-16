@@ -54,17 +54,9 @@
     }
   });
 
-  const handleSubmit = async (event?: Event) => {
-    if (event) {
-      event.preventDefault();
-    }
-
-    // Don't process empty commands
-    if (!command.trim()) {
-      return;
-    }
-
-    const [commandName, ...args] = command.split(' ');
+  // Export this function so other components can call it
+  export async function executeCommand(cmdString: string) {
+    const [commandName, ...args] = cmdString.split(' ');
     const commandNameLower = commandName.toLowerCase();
 
     if (import.meta.env.VITE_TRACKING_ENABLED === 'true') {
@@ -85,7 +77,7 @@
 
       if (commandNameLower !== 'clear' && commandNameLower !== 'cls' && commandNameLower !== 'home') {
         $history = [...$history, {
-          command,
+          command: cmdString,
           outputs: [output],
           isTyping: true,
           teletypeIndex: 0
@@ -102,13 +94,25 @@
       const output = `${commandNameLower}: command not found`;
 
       $history = [...$history, {
-        command,
+        command: cmdString,
         outputs: [output],
         isTyping: true,
         teletypeIndex: 0
       }];
     }
+  }
 
+  const handleSubmit = async (event?: Event) => {
+    if (event) {
+      event.preventDefault();
+    }
+
+    // Don't process empty commands
+    if (!command.trim()) {
+      return;
+    }
+
+    await executeCommand(command);
     command = '';
   };
 

@@ -10,13 +10,22 @@
     text = text.replace(/\[DESKTOP\]/g, '').replace(/\[\/DESKTOP\]/g, '');
     text = text.replace(/\[MOBILE\]/g, '').replace(/\[\/MOBILE\]/g, '');
 
-    // Match all markup patterns including ASCII, PARA, LIST, and HEADING
-    const parts = text.split(/(\[CMD\].*?\[\/CMD\]|\[DIM\].*?\[\/DIM\]|\[ARROW\]|\[TITLE\].*?\[\/TITLE\]|\[HEADING\].*?\[\/HEADING\]|\[ASCII\].*?\[\/ASCII\]|\[PARA\].*?\[\/PARA\]|\[LIST\].*?\[\/LIST\])/gs);
+    // Match all markup patterns including ASCII, PARA, LIST, HEADING, and LINK
+    const parts = text.split(/(\[CMD\].*?\[\/CMD\]|\[DIM\].*?\[\/DIM\]|\[ARROW\]|\[TITLE\].*?\[\/TITLE\]|\[HEADING\].*?\[\/HEADING\]|\[ASCII\].*?\[\/ASCII\]|\[PARA\].*?\[\/PARA\]|\[LIST\].*?\[\/LIST\]|\[LINK\].*?\[\/LINK\])/gs);
     return parts.map((part, i) => {
       if (part.includes('[CMD]')) {
         return {
           text: part.replace(/\[CMD\]|\[\/CMD\]/g, ''),
           type: 'command',
+          key: i
+        };
+      } else if (part.includes('[LINK]')) {
+        const content = part.replace(/\[LINK\]|\[\/LINK\]/g, '');
+        const [url, displayText] = content.split('|');
+        return {
+          text: displayText || url,
+          url: url,
+          type: 'link',
           key: i
         };
       } else if (part.includes('[DIM]')) {
@@ -139,6 +148,14 @@
                 style={`color: ${$theme.yellow}; font-weight: bold; cursor: pointer; transition: opacity 0.2s;`}
                 class="command-link"
               >{part.text}</span>
+            {:else if part.type === 'link'}
+              <a
+                href={part.url}
+                target={part.url.startsWith('http') ? '_blank' : '_self'}
+                rel={part.url.startsWith('http') ? 'noopener noreferrer' : ''}
+                style={`color: ${$theme.yellow}; font-weight: bold; cursor: pointer; transition: opacity 0.2s; text-decoration: none;`}
+                class="command-link"
+              >{part.text}</a>
             {:else if part.type === 'dim'}
               <span style={`opacity: 0.6; font-weight: bold;`}>{part.text}</span>
             {:else if part.type === 'arrow'}
