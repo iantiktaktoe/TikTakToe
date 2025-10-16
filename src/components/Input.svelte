@@ -60,6 +60,12 @@
       const commandFunction = commands[commandName];
 
       if (commandFunction) {
+        // Skip history for reboot command (it will reload the page)
+        if (commandName === 'reboot') {
+          await commandFunction(args);
+          return; // Don't continue - page will reload
+        }
+
         const rawOutput = await commandFunction(args);
         const output = filterOutputForDevice(rawOutput);
 

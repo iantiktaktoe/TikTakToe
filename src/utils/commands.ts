@@ -326,9 +326,11 @@ Type [CMD]'contact'[/CMD] to get in touch.`;
   reboot: () => {
     // Clear the boot flag from sessionStorage to trigger boot sequence
     sessionStorage.removeItem('isBooted');
-    // Reload the page
+    // Clear command history from localStorage directly (not via store to avoid race condition)
+    localStorage.removeItem('history');
+    // Reload the page immediately
     window.location.reload();
-    return "Rebooting system...";
+    return "";
   },
   curl: async (args: string[]) => {
     if (args.length === 0) {

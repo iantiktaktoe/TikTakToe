@@ -9,6 +9,7 @@
   let memoryChecksum = 0;
   let showMemoryCheck = false;
   const totalMemory = 32768; // 32MB in KB for retro feel
+  let bootAudio: HTMLAudioElement | null = null;
 
   // Boot sequence messages
   const bootMessages = [
@@ -38,34 +39,28 @@
     'Ian Bell ready. Type \'help\' for available commands.'
   ];
 
-  // Beep sound using Web Audio API
-  function playBeep(frequency: number = 800, duration: number = 100) {
+  // Play boot sound
+  function playBootSound() {
     try {
-      const audioContext = new (window.AudioContext || (window as any).webkitAudioContext)();
-      const oscillator = audioContext.createOscillator();
-      const gainNode = audioContext.createGain();
-
-      oscillator.connect(gainNode);
-      gainNode.connect(audioContext.destination);
-
-      oscillator.frequency.value = frequency;
-      oscillator.type = 'sine';
-
-      gainNode.gain.setValueAtTime(0.3, audioContext.currentTime);
-      gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + duration / 1000);
-
-      oscillator.start(audioContext.currentTime);
-      oscillator.stop(audioContext.currentTime + duration / 1000);
+      bootAudio = new Audio('/sounds/pc-booting.mp3');
+      bootAudio.volume = 0.5; // Set volume to 50%
+      bootAudio.play().catch(e => {
+        console.warn('Audio playback failed:', e);
+      });
     } catch (e) {
-      // Silently fail if audio not supported
       console.warn('Audio not supported:', e);
     }
   }
 
-  function finishBoot() {
-    if (!skipped) {
-      playBeep(1000, 150); // Success beep
+  function stopBootSound() {
+    if (bootAudio) {
+      bootAudio.pause();
+      bootAudio.currentTime = 0;
     }
+  }
+
+  function finishBoot() {
+    stopBootSound();
     setTimeout(() => {
       bootComplete.set(true);
     }, 500);
@@ -78,6 +73,7 @@
       progress = 100;
       memoryChecksum = totalMemory;
       showMemoryCheck = true;
+      stopBootSound();
       setTimeout(() => {
         finishBoot();
       }, 100);
@@ -85,8 +81,8 @@
   }
 
   onMount(() => {
-    // Play initial beep
-    playBeep(600, 80);
+    // Play boot sound
+    playBootSound();
 
     let currentIndex = 0;
     const lineDelay = 120; // ms between lines
@@ -102,12 +98,6 @@
 
         // Update progress bar
         progress = Math.round((currentIndex / bootMessages.length) * 100);
-
-        // Play subtle beep for certain lines
-        if (bootMessages[currentIndex].includes('[OK]') ||
-            bootMessages[currentIndex].includes('complete')) {
-          playBeep(900, 50);
-        }
 
         currentIndex++;
       } else if (!skipped) {
@@ -125,7 +115,6 @@
           } else {
             clearInterval(memoryInterval);
             displayedLines = [...displayedLines, `Memory checksum: ${totalMemory}KB OK`];
-            playBeep(1000, 100);
             finishBoot();
           }
         }, 50);
