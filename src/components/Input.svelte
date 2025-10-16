@@ -46,56 +46,70 @@
   });
 
   afterUpdate(() => {
-    input.scrollIntoView({ behavior: 'smooth', block: 'end' });
+    // Enhanced mobile keyboard visibility
+    if (window.innerWidth <= 640) {
+      input.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    } else {
+      input.scrollIntoView({ behavior: 'smooth', block: 'end' });
+    }
   });
 
-  const handleKeyDown = async (event: KeyboardEvent) => {
-    if (event.key === 'Enter') {
-      const [commandName, ...args] = command.split(' ');
+  const handleSubmit = async (event?: Event) => {
+    if (event) {
+      event.preventDefault();
+    }
 
-      if (import.meta.env.VITE_TRACKING_ENABLED === 'true') {
-        track(commandName, ...args);
+    const [commandName, ...args] = command.split(' ');
+    const commandNameLower = commandName.toLowerCase();
+
+    if (import.meta.env.VITE_TRACKING_ENABLED === 'true') {
+      track(commandNameLower, ...args);
+    }
+
+    const commandFunction = commands[commandNameLower];
+
+    if (commandFunction) {
+      // Skip history for reboot command (it will reload the page)
+      if (commandNameLower === 'reboot') {
+        await commandFunction(args);
+        return; // Don't continue - page will reload
       }
 
-      const commandFunction = commands[commandName];
+      const rawOutput = await commandFunction(args);
+      const output = filterOutputForDevice(rawOutput);
 
-      if (commandFunction) {
-        // Skip history for reboot command (it will reload the page)
-        if (commandName === 'reboot') {
-          await commandFunction(args);
-          return; // Don't continue - page will reload
-        }
-
-        const rawOutput = await commandFunction(args);
-        const output = filterOutputForDevice(rawOutput);
-
-        if (commandName !== 'clear' && commandName !== 'cls' && commandName !== 'home') {
-          $history = [...$history, {
-            command,
-            outputs: [output],
-            isTyping: true,
-            teletypeIndex: 0
-          }];
-        } else if (output) {
-          // For clear/cls/home, still show the banner output instantly without teletype
-          $history = [{
-            command: commandName,
-            outputs: [filterOutputForDevice(output)],
-            isTyping: false
-          }];
-        }
-      } else {
-        const output = `${commandName}: command not found`;
-
+      if (commandNameLower !== 'clear' && commandNameLower !== 'cls' && commandNameLower !== 'home') {
         $history = [...$history, {
           command,
           outputs: [output],
           isTyping: true,
           teletypeIndex: 0
         }];
+      } else if (output) {
+        // For clear/cls/home, still show the banner output instantly without teletype
+        $history = [{
+          command: commandNameLower,
+          outputs: [filterOutputForDevice(output)],
+          isTyping: false
+        }];
       }
+    } else {
+      const output = `${commandNameLower}: command not found`;
 
-      command = '';
+      $history = [...$history, {
+        command,
+        outputs: [output],
+        isTyping: true,
+        teletypeIndex: 0
+      }];
+    }
+
+    command = '';
+  };
+
+  const handleKeyDown = async (event: KeyboardEvent) => {
+    if (event.key === 'Enter') {
+      await handleSubmit();
     } else if (event.key === 'ArrowUp') {
       if (historyIndex < $history.length - 1) {
         historyIndex++;
@@ -117,7 +131,7 @@
       event.preventDefault();
 
       const autoCompleteCommand = Object.keys(commands).find((cmd) =>
-        cmd.startsWith(command),
+        cmd.startsWith(command.toLowerCase()),
       );
 
       if (autoCompleteCommand) {
@@ -137,7 +151,7 @@
   }}
 />
 
-<div class="flex items-center">
+<form on:submit={handleSubmit} class="flex items-center">
   <p class="visible md:hidden">❯</p>
   {#if command.length === 0}
     <span class="blinking-cursor" style="color: #33cc33; font-weight: bold;">█</span>
@@ -155,4 +169,4 @@
     on:blur={() => input.focus()}
     bind:this={input}
   />
-</div>
+</form>

@@ -106,6 +106,7 @@ pre, code {
   /* Extra right padding on mobile */
   main {
     padding-right: 1.5rem !important;
+    padding-bottom: 50vh !important; /* Add bottom padding to keep input visible above keyboard */
   }
 
   /* Force single column layout for lists on mobile */
@@ -160,6 +161,13 @@ pre, code {
 main {
   text-shadow: 0 0 2px currentColor;
   position: relative;
+}
+
+/* Remove text-shadow on mobile to prevent fuzzy text */
+@media (max-width: 640px) {
+  main {
+    text-shadow: none;
+  }
 }
 
 /* Green monitor gradient (scanlines removed) */
