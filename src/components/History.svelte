@@ -6,8 +6,8 @@
 
   // Parse output text for styled command hints
   function parseOutput(text: string) {
-    // Match all markup patterns
-    const parts = text.split(/(\[CMD\].*?\[\/CMD\]|\[DIM\].*?\[\/DIM\]|\[ARROW\]|\[TITLE\].*?\[\/TITLE\])/g);
+    // Match all markup patterns including ASCII and PARA
+    const parts = text.split(/(\[CMD\].*?\[\/CMD\]|\[DIM\].*?\[\/DIM\]|\[ARROW\]|\[TITLE\].*?\[\/TITLE\]|\[ASCII\].*?\[\/ASCII\]|\[PARA\].*?\[\/PARA\])/gs);
     return parts.map((part, i) => {
       if (part.includes('[CMD]')) {
         return {
@@ -31,6 +31,18 @@
         return {
           text: part.replace(/\[TITLE\]|\[\/TITLE\]/g, ''),
           type: 'title',
+          key: i
+        };
+      } else if (part.includes('[ASCII]')) {
+        return {
+          text: part.replace(/\[ASCII\]|\[\/ASCII\]/g, ''),
+          type: 'ascii',
+          key: i
+        };
+      } else if (part.includes('[PARA]')) {
+        return {
+          text: part.replace(/\[PARA\]|\[\/PARA\]/g, ''),
+          type: 'para',
           key: i
         };
       }
@@ -97,7 +109,11 @@
               {@const prevPart = findPrevNonWhitespace()}
               {@const marginTop = prevPart && prevPart.type === 'title' ? '0.25rem' : '1rem'}
               <span style={`font-weight: 900; font-size: 1.1em; color: ${$theme.green}; display: block; margin-top: ${marginTop}; margin-bottom: 0rem; word-wrap: break-word; overflow-wrap: break-word;`}>{part.text}</span
-            >{:else}
+            >{:else if part.type === 'ascii'}
+              <span class="ascii-art">{part.text}</span>
+            {:else if part.type === 'para'}
+              <span class="paragraph-text">{part.text}</span>
+            {:else}
               {part.text}
             {/if}
           {/each}
