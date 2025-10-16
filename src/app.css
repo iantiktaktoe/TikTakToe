@@ -130,14 +130,6 @@ pre, code {
   /* Show mobile content on mobile */
   .mobile-only {
     display: block !important;
-    text-indent: -1em;
-    padding-left: 1em;
-  }
-
-  /* Add hanging indent for bullet points on mobile - but not for titles or ASCII */
-  .whitespace-pre:not(:has(.ascii-art)):not(:has(span[style*="font-weight: 900"])) {
-    text-indent: -1em;
-    padding-left: 1em;
   }
 
 }

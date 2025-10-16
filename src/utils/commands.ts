@@ -29,16 +29,21 @@ export const commands: Record<string, (args: string[]) => Promise<string> | stri
   hostname: () => hostname,
   whoami: () => "guest",
   date: () => new Date().toLocaleString(),
+  debug: () => `Screen width: ${window.innerWidth}px
+Device type: ${window.innerWidth <= 640 ? 'Mobile' : 'Desktop'}
+Breakpoint: 640px`,
   about: () => `[TITLE]Senior AI Engineer & Architect[/TITLE]
 Senior engineer supporting CTOs with hands-on delivery and architecture.
 Security-cleared; enterprise-grade focus on reliability, observability, and cost control.
 
 I turn vibe code into maintainable systems.
 
-Technical Stack:
+[DESKTOP][HEADING]Technical Stack:[/HEADING]
 - LLMs (RAG, fine-tuning), vector DBs, agents, knowledge graphs
 - .NET/C#, React, Azure, Docker, CI/CD
-- 25 years building systems across gov, finance, pharma, legal, retail
+- 25 years building systems across gov, finance, pharma, legal, retail[/DESKTOP]
+[MOBILE][HEADING]Technical Stack:[/HEADING]
+LLMs (RAG, fine-tuning), vector DBs, agents, knowledge graphs, .NET/C#, React, Azure, Docker, CI/CD, 25 years building systems across gov, finance, pharma, legal, retail.[/MOBILE]
 
 Approach: Start with the problem. Ship small. Measure. Scale.
 
@@ -47,32 +52,43 @@ Type [CMD]'skills'[/CMD] for detailed technical capabilities.
 Type [CMD]'clients'[/CMD] to see who I've worked with.
 Type [CMD]'contact'[/CMD] to get in touch.`,
   skills: () => `[TITLE]Technical Skills & Expertise[/TITLE]
-AI Engineering:
+[DESKTOP][HEADING]AI Engineering:[/HEADING]
   • Production RAG & C-RAG pipelines with hybrid search
   • LLM fine-tuning (LoRA/QLoRA) and evaluation frameworks
   • Agent orchestration & workflow runners
   • Vector databases & knowledge graph integration
   • On-prem and local LLM deployments
 
-Full-Stack Development:
+[HEADING]Full-Stack Development:[/HEADING]
   • .NET/C# backend development
   • React frontend development
   • RESTful APIs, integrations, event-driven architectures
   • Legacy modernisation & performance tuning
   • Clean architecture, TDD, CI/CD pipelines
 
-Infrastructure & DevOps:
+[HEADING]Infrastructure & DevOps:[/HEADING]
   • Azure cloud platform
   • Docker containersation
   • CI/CD automation
   • Security best practices & compliance
   • System observability & monitoring
 
-Recent Work:
+[HEADING]Recent Work:[/HEADING]
   • LoRA-tuned Mistral models
   • Corrective RAG (C-RAG) pipeline implementation
   • On-premises LLM deployments
-  • Digital employee (agent) systems
+  • Digital employee (agent) systems[/DESKTOP]
+[MOBILE][HEADING]AI Engineering:[/HEADING]
+Production RAG & C-RAG pipelines with hybrid search, LLM fine-tuning (LoRA/QLoRA) and evaluation frameworks, agent orchestration & workflow runners, vector databases & knowledge graph integration, on-prem and local LLM deployments.
+
+[HEADING]Full-Stack Development:[/HEADING]
+.NET/C# backend development, React frontend development, RESTful APIs, integrations, event-driven architectures, legacy modernisation & performance tuning, clean architecture, TDD, CI/CD pipelines.
+
+[HEADING]Infrastructure & DevOps:[/HEADING]
+Azure cloud platform, Docker containerisation, CI/CD automation, security best practices & compliance, system observability & monitoring.
+
+[HEADING]Recent Work:[/HEADING]
+LoRA-tuned Mistral models, Corrective RAG (C-RAG) pipeline implementation, on-premises LLM deployments, digital employee (agent) systems.[/MOBILE]
 
 Industries: Government, Finance, Pharma, Legal, Retail
 
@@ -81,28 +97,39 @@ Type [CMD]'services'[/CMD] to see what I can help with.
 Type [CMD]'clients'[/CMD] to see who I've worked with.
 Type [CMD]'contact'[/CMD] to get in touch.`,
   services: () => `[TITLE]Services & Solutions[/TITLE]
-AI Engineering
+[DESKTOP][HEADING]AI Engineering[/HEADING]
   • RAG/C-RAG pipelines & hybrid search systems
   • LLM fine-tuning (LoRA/QLoRA) and evaluation
   • Agent orchestration & workflow automation
   • Vector databases & knowledge graph integration
 
-Full-Stack Development
+[HEADING]Full-Stack Development[/HEADING]
   • APIs, integrations, event-driven systems
   • Legacy modernisation & performance optimisation
   • Clean architecture, TDD, CI/CD, SLOs
   • .NET/C#, React, Azure stack
 
-Digital Employees (AI Agents)
+[HEADING]Digital Employees (AI Agents)[/HEADING]
   • Role design, tool access, and guardrails
   • Human-in-the-loop workflows & audit trails
   • Observability, cost tracking, and ROI measurement
 
-Architecture & Advisory
+[HEADING]Architecture & Advisory[/HEADING]
   • System design reviews and recommendations
   • PoC to Production pathways and runbooks
   • Team enablement on AI integration
-  • CTO-level strategic guidance
+  • CTO-level strategic guidance[/DESKTOP]
+[MOBILE][HEADING]AI Engineering[/HEADING]
+RAG/C-RAG pipelines & hybrid search systems, LLM fine-tuning (LoRA/QLoRA) and evaluation, agent orchestration & workflow automation, vector databases & knowledge graph integration.
+
+[HEADING]Full-Stack Development[/HEADING]
+APIs, integrations, event-driven systems, legacy modernisation & performance optimisation, clean architecture, TDD, CI/CD, SLOs, .NET/C#, React, Azure stack.
+
+[HEADING]Digital Employees (AI Agents)[/HEADING]
+Role design, tool access, and guardrails, human-in-the-loop workflows & audit trails, observability, cost tracking, and ROI measurement.
+
+[HEADING]Architecture & Advisory[/HEADING]
+System design reviews and recommendations, PoC to Production pathways and runbooks, team enablement on AI integration, CTO-level strategic guidance.[/MOBILE]
 
 Type [CMD]'about'[/CMD] to learn more about me.
 Type [CMD]'skills'[/CMD] for detailed technical capabilities.
