@@ -11,7 +11,7 @@ export const commands: Record<string, (args: string[]) => Promise<string> | stri
     const categories = {
       About: ["about", "skills", "services", "clients"],
       Contact: ["contact", "email", "linkedin"],
-      System: ["help", "clear", "cls", "home"],
+      System: ["help", "clear", "cls", "home", "reboot"],
     };
 
     let output = "Available commands:\n\n";
@@ -322,6 +322,13 @@ Type [CMD]'contact'[/CMD] to get in touch.`;
   },
   exit: () => {
     return "Please close the tab to exit.";
+  },
+  reboot: () => {
+    // Clear the boot flag from sessionStorage to trigger boot sequence
+    sessionStorage.removeItem('isBooted');
+    // Reload the page
+    window.location.reload();
+    return "Rebooting system...";
   },
   curl: async (args: string[]) => {
     if (args.length === 0) {

@@ -2,6 +2,7 @@
   import { afterUpdate, onMount } from 'svelte';
   import { history } from '../stores/history';
   import { theme } from '../stores/theme';
+  import { bootComplete } from '../stores/boot';
   import { commands } from '../utils/commands';
   import { track } from '../utils/tracking';
 
@@ -26,7 +27,8 @@
   onMount(() => {
     input.focus();
 
-    if ($history.length === 0) {
+    // Only show banner after boot sequence is complete
+    if ($bootComplete && $history.length === 0) {
       const command = commands['banner'] as () => string;
 
       if (command) {
