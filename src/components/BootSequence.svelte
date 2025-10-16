@@ -5,6 +5,10 @@
   let displayedLines: string[] = [];
   let showSkipHint = false;
   let skipped = false;
+  let progress = 0;
+  let memoryChecksum = 0;
+  let showMemoryCheck = false;
+  const totalMemory = 32768; // 32MB in KB for retro feel
 
   // Boot sequence messages
   const bootMessages = [
@@ -71,7 +75,12 @@
     if (!skipped) {
       skipped = true;
       displayedLines = bootMessages;
-      finishBoot();
+      progress = 100;
+      memoryChecksum = totalMemory;
+      showMemoryCheck = true;
+      setTimeout(() => {
+        finishBoot();
+      }, 100);
     }
   }
 
@@ -91,6 +100,9 @@
       if (currentIndex < bootMessages.length && !skipped) {
         displayedLines = [...displayedLines, bootMessages[currentIndex]];
 
+        // Update progress bar
+        progress = Math.round((currentIndex / bootMessages.length) * 100);
+
         // Play subtle beep for certain lines
         if (bootMessages[currentIndex].includes('[OK]') ||
             bootMessages[currentIndex].includes('complete')) {
@@ -99,8 +111,24 @@
 
         currentIndex++;
       } else if (!skipped) {
+        progress = 100;
         clearInterval(interval);
-        finishBoot();
+
+        // Start memory checksum animation
+        showMemoryCheck = true;
+        displayedLines = [...displayedLines, '', 'Verifying system memory...'];
+
+        const memoryInterval = setInterval(() => {
+          if (memoryChecksum < totalMemory) {
+            // Increment by chunks for speed
+            memoryChecksum = Math.min(memoryChecksum + 2048, totalMemory);
+          } else {
+            clearInterval(memoryInterval);
+            displayedLines = [...displayedLines, `Memory checksum: ${totalMemory}KB OK`];
+            playBeep(1000, 100);
+            finishBoot();
+          }
+        }, 50);
       }
     }, lineDelay);
 
@@ -120,9 +148,18 @@
     {#each displayedLines as line}
       <div class="boot-line">{line || '\u00A0'}</div>
     {/each}
+    {#if showMemoryCheck && memoryChecksum < totalMemory}
+      <div class="boot-line memory-check">{memoryChecksum}KB</div>
+    {/if}
     {#if displayedLines.length < bootMessages.length && !skipped}
       <span class="boot-cursor">_</span>
     {/if}
+  </div>
+
+  <!-- Progress bar at bottom -->
+  <div class="progress-container">
+    <div class="progress-bar" style="width: {progress}%"></div>
+    <div class="progress-text">{progress}%</div>
   </div>
 
   {#if showSkipHint && !skipped && displayedLines.length < bootMessages.length}
@@ -140,25 +177,46 @@
     background-color: #000000;
     color: #33ff33;
     font-family: 'Courier New', monospace;
-    padding: 2rem;
+    padding: 1rem;
     overflow: hidden;
     z-index: 9999;
+    box-sizing: border-box;
+  }
+
+  @media (min-width: 640px) {
+    .boot-screen {
+      padding: 2rem;
+    }
   }
 
   .boot-content {
-    font-size: 0.9rem;
-    line-height: 1.4;
-    white-space: pre;
+    font-size: 0.75rem;
+    line-height: 1.3;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    max-width: 100%;
+    padding-bottom: 5rem;
   }
 
   @media (min-width: 640px) {
     .boot-content {
       font-size: 1rem;
+      line-height: 1.4;
+      white-space: pre;
     }
   }
 
   .boot-line {
     margin-bottom: 0.1rem;
+    max-width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .memory-check {
+    color: #33ff33;
+    font-weight: bold;
   }
 
   .boot-cursor {
@@ -176,13 +234,58 @@
     }
   }
 
-  .skip-hint {
+  .progress-container {
     position: fixed;
     bottom: 2rem;
-    right: 2rem;
-    font-size: 0.75rem;
+    left: 1rem;
+    right: 1rem;
+    height: 2rem;
+    background-color: #001100;
+    border: 1px solid #33ff33;
+    box-sizing: border-box;
+  }
+
+  @media (min-width: 640px) {
+    .progress-container {
+      left: 2rem;
+      right: 2rem;
+    }
+  }
+
+  .progress-bar {
+    height: 100%;
+    background-color: #33ff33;
+    transition: width 0.1s linear;
+    box-shadow: 0 0 10px #33ff33;
+  }
+
+  .progress-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: #33ff33;
+    font-weight: bold;
+    font-size: 0.875rem;
+    text-shadow: 0 0 5px #33ff33;
+    mix-blend-mode: difference;
+  }
+
+  .skip-hint {
+    position: fixed;
+    bottom: 4rem;
+    right: 1rem;
+    font-size: 0.7rem;
     opacity: 0.5;
     animation: fade-in 0.5s ease-in;
+  }
+
+  @media (min-width: 640px) {
+    .skip-hint {
+      bottom: 4.5rem;
+      right: 2rem;
+      font-size: 0.75rem;
+    }
   }
 
   @keyframes fade-in {
