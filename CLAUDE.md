@@ -40,7 +40,10 @@ When you run the site locally and type these commands:
 - `about` - Professional introduction and tech stack
 - `skills` - Detailed technical capabilities
 - `services` - Services offered (AI engineering, architecture, etc.)
-- `contact` - Opens Calendly + shows email/location
+- `clients` - Client portfolio list (2-column desktop, 1-column mobile)
+- `contact` - Shows contact info with email and LinkedIn command prompts
+- `email` - Opens default email client
+- `linkedin` - Opens LinkedIn profile in new tab
 
 ### System Commands
 - `help` - List all available commands
@@ -76,6 +79,17 @@ export const commands: Record<string, (args: string[]) => Promise<string> | stri
 };
 ```
 
+**Special Markup Tags** (parsed in History.svelte and TeletypeOutput.svelte):
+- `[CMD]text[/CMD]` - Yellow bold command text
+- `[TITLE]text[/TITLE]` - Large green title with spacing logic
+- `[PARA]text[/PARA]` - Paragraph text with 1rem size, normal wrapping
+- `[ASCII]text[/ASCII]` - ASCII art with special sizing (0.57rem mobile, 1rem desktop)
+- `[DESKTOP]text[/DESKTOP]` - Desktop-only content (hidden on mobile <640px)
+- `[MOBILE]text[/MOBILE]` - Mobile-only content (hidden on desktop >640px)
+- `[LIST]text[/LIST]` - List content (currently unused, kept for future)
+- `[DIM]text[/DIM]` - Dimmed text (60% opacity)
+- `[ARROW]` - Right arrow symbol (→)
+
 #### Changing Default Theme
 Edit `src/stores/theme.ts`:
 ```typescript
@@ -92,6 +106,13 @@ const defaultColorscheme: Theme = themes.find((t) => t.name === 'Treehouse')!;
 - Component-specific styling in `.svelte` files
 - Theme colors managed via `themes.json` + localStorage
 
+**Mobile Responsiveness** (640px breakpoint):
+- ASCII logo: 0.57rem font-size, line-height 1.4 on mobile
+- Paragraph text: 0.875rem on mobile, 1rem on desktop
+- Hanging indent for bullet points on mobile (text-indent: -1em, padding-left: 1em)
+- ASCII art excluded from hanging indent using `:not(:has())` selector
+- Device-specific content filtering in Input.svelte before teletype animation
+
 ## Important Notes
 - Browser localStorage caches the selected theme and command history
 - Hot Module Replacement (HMR) enabled for fast development
@@ -100,9 +121,14 @@ const defaultColorscheme: Theme = themes.find((t) => t.name === 'Treehouse')!;
 - The banner displays on page load automatically (no teletype animation)
 - **Teletype Effect**: All command outputs (except banner/home/clear) display with character-by-character animation
   - Press any key to skip animation
-  - Animation speed: 25ms per character
+  - Animation speed: 25ms per character (configurable in teletype.ts)
+  - Max length: 5000 characters (configurable in teletype.ts)
   - Bright green block cursor (█) follows typing
   - Sound is currently disabled (can be re-enabled in TeletypeOutput.svelte)
+- **Device-Specific Content**: Use `[DESKTOP]...[/DESKTOP]` and `[MOBILE]...[/MOBILE]` tags in command outputs
+  - Content is filtered before teletype based on screen size (640px breakpoint)
+  - Desktop shows only DESKTOP tags, mobile shows only MOBILE tags
+  - Example: `clients` command has 2-column layout for desktop, single-column for mobile
 
 ## Deployment Options
 1. **Vercel/Netlify**: Connect git repo, auto-deploy
@@ -136,5 +162,12 @@ const defaultColorscheme: Theme = themes.find((t) => t.name === 'Treehouse')!;
 - **Commands not working**: Check `src/utils/commands.ts` syntax
 - **Build errors**: Run `npm run check` to see TypeScript errors
 - **Teletype not working**: Clear localStorage history (old entries don't have `isTyping` flag)
-- **Teletype too fast/slow**: Adjust `speed` parameter in `src/utils/teletype.ts` (default: 25ms)
+- **Teletype too fast/slow**: Adjust `speed` parameter in `src/utils/teletype.ts` (default: 10ms)
+- **Teletype pauses/stops**: Check that content length is under maxLength (5000 chars)
 - **Title spacing issues**: Check that consecutive `[TITLE]` tags have proper whitespace handling
+- **Mobile ASCII logo shifted**: Ensure `.ascii-art` has `text-indent: 0 !important` on mobile
+- **Device content not filtering**: Check `filterOutputForDevice()` in Input.svelte
+
+## Known Issues to Address
+- **Mobile bullet point alignment**: Hanging indent implementation needs refinement for different bullet types
+- Current hanging indent works but may need adjustment for various content structures
