@@ -58,12 +58,12 @@ Full-Stack Development:
   • .NET/C# backend development
   • React frontend development
   • RESTful APIs, integrations, event-driven architectures
-  • Legacy modernization & performance tuning
+  • Legacy modernisation & performance tuning
   • Clean architecture, TDD, CI/CD pipelines
 
 Infrastructure & DevOps:
   • Azure cloud platform
-  • Docker containerization
+  • Docker containersation
   • CI/CD automation
   • Security best practices & compliance
   • System observability & monitoring
@@ -89,7 +89,7 @@ AI Engineering
 
 Full-Stack Development
   • APIs, integrations, event-driven systems
-  • Legacy modernization & performance optimization
+  • Legacy modernisation & performance optimisation
   • Clean architecture, TDD, CI/CD, SLOs
   • .NET/C#, React, Azure stack
 
@@ -119,13 +119,14 @@ Location: Warwickshire, UK — Remote first
 
 Let's discuss your complex build requirements.
 
-Type [CMD]'email'[/CMD] to send me an email`;
+Type [CMD]'email'[/CMD] to send me an email
+Type [CMD]'linkedin'[/CMD] to view my LinkedIn profile`;
   },
   clients: () => {
     return `[TITLE]Client Portfolio[/TITLE]
 Just some of the clients I've had the opportunity to work with:
 
-• JCB                      • National Express
+[DESKTOP]• JCB                      • National Express
 • Police Mutual            • PrescQIPP
 • RICOH                    • Rayburn Tours
 • Ingersoll Rand           • Doosan Group
@@ -144,12 +145,57 @@ Just some of the clients I've had the opportunity to work with:
 • Crown Paints UK          • Marlins
 • Oxford University        • Hansa Biopharma
 • National Grid            • Staffordshire University
+• McCann                   • Halfax
+• AstraZeneca              • Barclays Technology
+• Lloyds Bank              • Eversheds[/DESKTOP][MOBILE]• JCB
+• Police Mutual
+• RICOH
+• Ingersoll Rand
+• Bury College
+• QNUK
+• The Ticket Factory
+• The NEC
+• Sheffield Council
+• The Post Office
+• College of Policing
+• Carter Synergy
+• Tarmac
+• Celcat
+• Manchester Connexions
+• Goodtyre
+• Crown Paints UK
+• Oxford University
+• National Grid
 • McCann
+• AstraZeneca
+• Lloyds Bank
+• National Express
+• PrescQIPP
+• Rayburn Tours
+• Doosan Group
+• Baileys UK
+• Guinness GB
+• Tanqueray
+• Captain Morgan
+• Atlas Assistance
+• Compressed Air Parts
+• St Modwens
+• Countrywide Insurance
+• M Training
+• Medibroker Insurance
+• Helpfinder UK
+• Serverlec Controls
+• Marlins
+• Hansa Biopharma
+• Staffordshire University
+• Halfax
+• Barclays Technology
+• Eversheds[/MOBILE]
 
 Industries: Government, Finance, Pharma, Legal, Retail, Manufacturing, Education
 
 Type [CMD]'about'[/CMD] to learn more about my expertise.
-Type [CMD]'services'[/CMD] to see how I can help your organization.
+Type [CMD]'services'[/CMD] to see how I can help your organisation.
 Type [CMD]'contact'[/CMD] to get in touch.`;
   },
   vi: () => `why use vi? try 'emacs'`,
@@ -272,10 +318,8 @@ Type [CMD]'contact'[/CMD] to get in touch.`;
    ██║   ██║██║  ██╗   ██║   ██║  ██║██║  ██╗   ██║   ╚██████╔╝███████╗
    ╚═╝   ╚═╝╚═╝  ╚═╝   ╚═╝   ╚═╝  ╚═╝╚═╝  ╚═╝   ╚═╝    ╚═════╝ ╚══════╝[/ASCII]
 
-[TITLE]Senior AI Engineer & Architect[/TITLE]
-[TITLE]25 years building systems. Shipping AI that works.[/TITLE]
-[TITLE]Professional Generalist[/TITLE]
-[PARA]Adaptable problem-solver with cross-domain expertise spanning AI, legacy modernization, and enterprise architecture. Forward-thinking approach to integrating emerging AI technologies with proven engineering practices. Flexible delivery model supporting everything from rapid prototypes to production-scale systems.[/PARA]
+[TITLE]Senior AI Engineer & Architect[/TITLE][TITLE]25 years building systems. Shipping AI that works.[/TITLE][TITLE]Professional Generalist[/TITLE]
+[PARA]Adaptable problem-solver with cross-domain expertise spanning AI, legacy modernisation, and enterprise architecture. Forward-thinking approach to integrating emerging AI technologies with proven engineering practices. Flexible delivery model supporting everything from rapid prototypes to production-scale systems.[/PARA]
 
 Type [CMD]'help'[/CMD] to see all available commands.
 Type [CMD]'about'[/CMD] to learn more.

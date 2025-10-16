@@ -10,6 +10,19 @@
 
   let input: HTMLInputElement;
 
+  // Filter output based on screen size - remove hidden device-specific content
+  function filterOutputForDevice(output: string): string {
+    const isMobile = window.innerWidth <= 640;
+
+    if (isMobile) {
+      // Remove desktop content on mobile
+      return output.replace(/\[DESKTOP\].*?\[\/DESKTOP\]/gs, '');
+    } else {
+      // Remove mobile content on desktop
+      return output.replace(/\[MOBILE\].*?\[\/MOBILE\]/gs, '');
+    }
+  }
+
   onMount(() => {
     input.focus();
 
@@ -17,7 +30,8 @@
       const command = commands['banner'] as () => string;
 
       if (command) {
-        const output = command();
+        const rawOutput = command();
+        const output = filterOutputForDevice(rawOutput);
 
         // Banner/home page should display instantly without teletype
         $history = [...$history, {
@@ -44,7 +58,8 @@
       const commandFunction = commands[commandName];
 
       if (commandFunction) {
-        const output = await commandFunction(args);
+        const rawOutput = await commandFunction(args);
+        const output = filterOutputForDevice(rawOutput);
 
         if (commandName !== 'clear' && commandName !== 'cls' && commandName !== 'home') {
           $history = [...$history, {
@@ -57,7 +72,7 @@
           // For clear/cls/home, still show the banner output instantly without teletype
           $history = [{
             command: commandName,
-            outputs: [output],
+            outputs: [filterOutputForDevice(output)],
             isTyping: false
           }];
         }

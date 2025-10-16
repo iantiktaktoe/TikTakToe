@@ -64,7 +64,7 @@
 
   // Parse output text for styled command hints
   function parseOutput(text: string) {
-    const parts = text.split(/(\[CMD\].*?\[\/CMD\]|\[DIM\].*?\[\/DIM\]|\[ARROW\]|\[TITLE\].*?\[\/TITLE\])/g);
+    const parts = text.split(/(\[CMD\].*?\[\/CMD\]|\[DIM\].*?\[\/DIM\]|\[ARROW\]|\[TITLE\].*?\[\/TITLE\]|\[ASCII\].*?\[\/ASCII\]|\[PARA\].*?\[\/PARA\]|\[LIST\].*?\[\/LIST\]|\[DESKTOP\].*?\[\/DESKTOP\]|\[MOBILE\].*?\[\/MOBILE\])/gs);
     return parts.map((part, i) => {
       if (part.includes('[CMD]')) {
         return {
@@ -88,6 +88,36 @@
         return {
           text: part.replace(/\[TITLE\]|\[\/TITLE\]/g, ''),
           type: 'title',
+          key: i
+        };
+      } else if (part.includes('[ASCII]')) {
+        return {
+          text: part.replace(/\[ASCII\]|\[\/ASCII\]/g, ''),
+          type: 'ascii',
+          key: i
+        };
+      } else if (part.includes('[PARA]')) {
+        return {
+          text: part.replace(/\[PARA\]|\[\/PARA\]/g, ''),
+          type: 'para',
+          key: i
+        };
+      } else if (part.includes('[LIST]')) {
+        return {
+          text: part.replace(/\[LIST\]|\[\/LIST\]/g, ''),
+          type: 'list',
+          key: i
+        };
+      } else if (part.includes('[DESKTOP]')) {
+        return {
+          text: part.replace(/\[DESKTOP\]|\[\/DESKTOP\]/g, ''),
+          type: 'desktop',
+          key: i
+        };
+      } else if (part.includes('[MOBILE]')) {
+        return {
+          text: part.replace(/\[MOBILE\]|\[\/MOBILE\]/g, ''),
+          type: 'mobile',
           key: i
         };
       }
@@ -120,8 +150,18 @@
         return null;
       }}
       {@const prevPart = findPrevNonWhitespace()}
-      {@const marginTop = prevPart && prevPart.type === 'title' ? '-1.25rem' : '1rem'}
-      <span style={`font-weight: 900; font-size: 1.1em; color: ${$theme.green}; display: block; margin-top: ${marginTop}; word-wrap: break-word; overflow-wrap: break-word;`}>{part.text}</span>
+      {@const marginTop = prevPart && prevPart.type === 'title' ? '0.25rem' : '1rem'}
+      <span style={`font-weight: 900; font-size: 1.1em; color: ${$theme.green}; display: block; margin-top: ${marginTop}; margin-bottom: 0rem; word-wrap: break-word; overflow-wrap: break-word;`}>{part.text}</span>
+    {:else if part.type === 'ascii'}
+      <span class="ascii-art">{part.text}</span>
+    {:else if part.type === 'para'}
+      <span class="paragraph-text">{part.text}</span>
+    {:else if part.type === 'list'}
+      <span class="client-list">{part.text}</span>
+    {:else if part.type === 'desktop'}
+      <span class="desktop-only">{part.text}</span>
+    {:else if part.type === 'mobile'}
+      <span class="mobile-only">{part.text}</span>
     {:else}
       {part.text}
     {/if}

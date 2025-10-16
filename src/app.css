@@ -43,10 +43,27 @@ pre, code {
 }
 
 .paragraph-text {
-  font-size: 0.95rem;
+  font-size: 1rem;
   line-height: 1.6;
   white-space: normal;
   display: inline;
+}
+
+.client-list {
+  white-space: pre;
+  display: block;
+}
+
+/* Desktop-only content */
+.desktop-only {
+  display: inline;
+  white-space: pre;
+}
+
+/* Mobile-only content */
+.mobile-only {
+  display: none;
+  white-space: pre-wrap;
 }
 
 /* Scale down ASCII art on mobile but keep titles readable */
@@ -56,12 +73,19 @@ pre, code {
     font-size: 0.57rem;
     line-height: 1.4;
     letter-spacing: -0.05em;
+    text-indent: 0 !important;
+    padding-left: 0 !important;
   }
 
   /* Paragraph text readable on mobile */
   .paragraph-text {
     font-size: 0.875rem;
     line-height: 1.5;
+  }
+
+  /* Match normal text size to paragraph text */
+  .whitespace-pre {
+    font-size: 0.875rem;
   }
 
   /* Ensure paragraphs and text wrap properly */
@@ -82,6 +106,38 @@ pre, code {
   /* Extra right padding on mobile */
   main {
     padding-right: 1.5rem !important;
+  }
+
+  /* Force single column layout for lists on mobile */
+  .whitespace-pre {
+    white-space: pre-wrap !important;
+    word-spacing: normal !important;
+  }
+
+  /* Client list formatting on mobile - single column with hanging indent */
+  .client-list {
+    white-space: pre-wrap !important;
+    display: block;
+    text-indent: -1em;
+    padding-left: 1em;
+  }
+
+  /* Hide desktop content on mobile */
+  .desktop-only {
+    display: none !important;
+  }
+
+  /* Show mobile content on mobile */
+  .mobile-only {
+    display: block !important;
+    text-indent: -1em;
+    padding-left: 1em;
+  }
+
+  /* Add hanging indent for bullet points on mobile - but not for titles or ASCII */
+  .whitespace-pre:not(:has(.ascii-art)):not(:has(span[style*="font-weight: 900"])) {
+    text-indent: -1em;
+    padding-left: 1em;
   }
 
 }

@@ -6,8 +6,8 @@
 
   // Parse output text for styled command hints
   function parseOutput(text: string) {
-    // Match all markup patterns including ASCII and PARA
-    const parts = text.split(/(\[CMD\].*?\[\/CMD\]|\[DIM\].*?\[\/DIM\]|\[ARROW\]|\[TITLE\].*?\[\/TITLE\]|\[ASCII\].*?\[\/ASCII\]|\[PARA\].*?\[\/PARA\])/gs);
+    // Match all markup patterns including ASCII, PARA, LIST, DESKTOP, and MOBILE
+    const parts = text.split(/(\[CMD\].*?\[\/CMD\]|\[DIM\].*?\[\/DIM\]|\[ARROW\]|\[TITLE\].*?\[\/TITLE\]|\[ASCII\].*?\[\/ASCII\]|\[PARA\].*?\[\/PARA\]|\[LIST\].*?\[\/LIST\]|\[DESKTOP\].*?\[\/DESKTOP\]|\[MOBILE\].*?\[\/MOBILE\])/gs);
     return parts.map((part, i) => {
       if (part.includes('[CMD]')) {
         return {
@@ -43,6 +43,24 @@
         return {
           text: part.replace(/\[PARA\]|\[\/PARA\]/g, ''),
           type: 'para',
+          key: i
+        };
+      } else if (part.includes('[LIST]')) {
+        return {
+          text: part.replace(/\[LIST\]|\[\/LIST\]/g, ''),
+          type: 'list',
+          key: i
+        };
+      } else if (part.includes('[DESKTOP]')) {
+        return {
+          text: part.replace(/\[DESKTOP\]|\[\/DESKTOP\]/g, ''),
+          type: 'desktop',
+          key: i
+        };
+      } else if (part.includes('[MOBILE]')) {
+        return {
+          text: part.replace(/\[MOBILE\]|\[\/MOBILE\]/g, ''),
+          type: 'mobile',
           key: i
         };
       }
@@ -113,6 +131,12 @@
               <span class="ascii-art">{part.text}</span>
             {:else if part.type === 'para'}
               <span class="paragraph-text">{part.text}</span>
+            {:else if part.type === 'list'}
+              <span class="client-list">{part.text}</span>
+            {:else if part.type === 'desktop'}
+              <span class="desktop-only">{part.text}</span>
+            {:else if part.type === 'mobile'}
+              <span class="mobile-only">{part.text}</span>
             {:else}
               {part.text}
             {/if}
