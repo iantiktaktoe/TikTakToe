@@ -23,7 +23,7 @@ console.log(
 );
 
 console.log(
-  '%cIan Bell %c| %cSenior AI Engineer & Architect',
+  '%cIan Bell %c| %cSenior .NET Developer, AI Engineer, and Architect',
   'color: #33ff33; font-size: 14px; font-weight: bold;',
   'color: #666;',
   'color: #33ff33; font-size: 14px;'

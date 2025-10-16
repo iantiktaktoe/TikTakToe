@@ -32,7 +32,7 @@ export const commands: Record<string, (args: string[]) => Promise<string> | stri
   debug: () => `Screen width: ${window.innerWidth}px
 Device type: ${window.innerWidth <= 640 ? 'Mobile' : 'Desktop'}
 Breakpoint: 640px`,
-  about: () => `[TITLE]Senior AI Engineer & Architect[/TITLE]
+  about: () => `[TITLE]Senior .NET Developer, AI Engineer, and Architect[/TITLE]
 Senior engineer supporting CTOs with hands-on delivery and architecture.
 Security-cleared; enterprise-grade focus on reliability, observability, and cost control.
 
@@ -138,7 +138,7 @@ Type [CMD]'clients'[/CMD] to see who I've worked with.
 Type [CMD]'contact'[/CMD] to discuss your project.`,
   contact: () => {
     return `[TITLE]Ian Bell[/TITLE]
-Senior AI Engineer & Architect
+Senior .NET Developer, AI Engineer, and Architect
 
 Email: [LINK]mailto:ian@tiktaktoe.co.uk|ian@tiktaktoe.co.uk[/LINK]
 Mobile: [LINK]tel:+447971235265|07971 235 265[/LINK]
@@ -355,7 +355,7 @@ Type [CMD]'contact'[/CMD] to get in touch.`;
    ██║   ██║██║  ██╗   ██║   ██║  ██║██║  ██╗   ██║   ╚██████╔╝███████╗
    ╚═╝   ╚═╝╚═╝  ╚═╝   ╚═╝   ╚═╝  ╚═╝╚═╝  ╚═╝   ╚═╝    ╚═════╝ ╚══════╝[/ASCII]
 
-[TITLE]Senior AI Engineer & Architect[/TITLE][TITLE]25 years building systems. Shipping AI that works.[/TITLE][TITLE]Professional Generalist[/TITLE]
+[TITLE]Senior .NET Developer, AI Engineer, and Architect[/TITLE][TITLE]25 years building systems. Shipping AI that works.[/TITLE][TITLE]Professional Generalist[/TITLE]
 [PARA]Adaptable problem-solver with cross-domain expertise spanning AI, legacy modernisation, and enterprise architecture. Forward-thinking approach to integrating emerging AI technologies with proven engineering practices. Flexible delivery model supporting everything from rapid prototypes to production-scale systems.[/PARA]
 
 Type [CMD]'help'[/CMD] to see all available commands.
