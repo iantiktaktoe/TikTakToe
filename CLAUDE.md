@@ -1,7 +1,7 @@
 # Terminal Portfolio - Claude Code Instructions
 
 ## Project Overview
-This is a Svelte + TypeScript terminal-style portfolio website customized for Ian, a Senior AI Engineer & Architect. The site mimics a terminal interface with custom commands showcasing skills, services, and contact information.
+This is a Svelte + TypeScript terminal-style portfolio website customized for Ian, a Senior .NET Developer, AI Engineer, and Architect. The site mimics a terminal interface with custom commands showcasing skills, services, and contact information.
 
 ## Technology Stack
 - **Framework**: Svelte 4.x
@@ -80,7 +80,11 @@ export const commands: Record<string, (args: string[]) => Promise<string> | stri
 ```
 
 **Special Markup Tags** (parsed in History.svelte and TeletypeOutput.svelte):
-- `[CMD]text[/CMD]` - Yellow bold command text
+- `[CMD]text[/CMD]` - Yellow bold clickable command text (executes command on click)
+- `[LINK]url|displaytext[/LINK]` - Yellow bold clickable link (opens URL)
+  - Format: `[LINK]mailto:email@example.com|email@example.com[/LINK]`
+  - Supports mailto:, tel:, and http(s):// URLs
+  - External links open in new tab with security attributes
 - `[TITLE]text[/TITLE]` - Large green title with spacing logic
 - `[PARA]text[/PARA]` - Paragraph text with 1rem size, normal wrapping
 - `[ASCII]text[/ASCII]` - ASCII art with special sizing (0.57rem mobile, 1rem desktop)
@@ -109,6 +113,11 @@ const defaultColorscheme: Theme = themes.find((t) => t.name === 'Treehouse')!;
 **Mobile Responsiveness** (640px breakpoint):
 - ASCII logo: 0.57rem font-size, line-height 1.4 on mobile
 - Paragraph text: 0.875rem on mobile, 1rem on desktop
+- Input font-size: 16px to prevent iOS auto-zoom
+- Text-shadow removed on mobile for crisp text (prevents fuzzy rendering)
+- Bottom padding (50vh) for keyboard visibility
+- Centered scrolling for better keyboard UX
+- Touch-friendly tap targets for clickable commands/links
 - Hanging indent for bullet points on mobile (text-indent: -1em, padding-left: 1em)
 - ASCII art excluded from hanging indent using `:not(:has())` selector
 - Device-specific content filtering in Input.svelte before teletype animation
@@ -117,8 +126,20 @@ const defaultColorscheme: Theme = themes.find((t) => t.name === 'Treehouse')!;
 - Browser localStorage caches the selected theme and command history
 - Hot Module Replacement (HMR) enabled for fast development
 - If changes don't appear, clear browser cache/localStorage or hard refresh (Ctrl+F5)
-- Commands are case-sensitive by default
+- **Commands are case-insensitive** (HELP, Help, help all work)
 - The banner displays on page load automatically (no teletype animation)
+- **Boot Sequence**: Site displays retro BIOS boot animation on first load (per session)
+  - Plays boot sound effect
+  - Beep sound on completion
+  - Can be skipped by pressing any key
+  - Stored in sessionStorage (resets on new tab/window)
+- **Clickable Commands & Links**: All `[CMD]` and `[LINK]` tagged text is clickable
+  - Commands execute directly without showing in input field
+  - Hover shows underline + opacity change
+  - Mobile tap-friendly with active state feedback
+  - Keyboard accessible (Tab + Enter)
+  - Commands in help page are all clickable
+  - Contact page has clickable email, phone, LinkedIn links
 - **Teletype Effect**: All command outputs (except banner/home/clear) display with character-by-character animation
   - Press any key to skip animation
   - Animation speed: 25ms per character (configurable in teletype.ts)
@@ -135,15 +156,11 @@ const defaultColorscheme: Theme = themes.find((t) => t.name === 'Treehouse')!;
 2. **Static hosting**: Run `npm run build`, upload `dist/` folder
 3. **Docker**: Use included `Dockerfile` and `docker-compose.yml`
 
-## To-Do Before Going Live
-- [ ] Replace "calendly-link" placeholder with actual Calendly URL
-  - Location 1: `package.json` line 14
-  - Location 2: `src/utils/commands.ts` line 111
-- [ ] Add custom favicon/icon in `public/icon.png`
-- [ ] Update README.md with your own content
-- [ ] Test all commands in the terminal
-- [ ] Consider adding more custom commands (projects, resume, etc.)
-- [ ] Set up analytics if desired (VITE_TRACKING_* env vars)
+## Deployment Notes
+- **Live Site**: Deployed on Vercel with auto-deployment from GitHub
+- **Repository**: https://github.com/iantiktaktoe/TikTakToe.git
+- **Excluded from Git**: CLAUDE.md, TODO.md, .claude/ directory (see .gitignore)
+- **Copyright Footer**: Automatically shows current year, displays Purple Ohm Ltd trading name
 
 ## Customization Ideas
 - Add `projects` command to list portfolio projects
@@ -167,7 +184,16 @@ const defaultColorscheme: Theme = themes.find((t) => t.name === 'Treehouse')!;
 - **Title spacing issues**: Check that consecutive `[TITLE]` tags have proper whitespace handling
 - **Mobile ASCII logo shifted**: Ensure `.ascii-art` has `text-indent: 0 !important` on mobile
 - **Device content not filtering**: Check `filterOutputForDevice()` in Input.svelte
+- **Clickable commands not working**: Check `[CMD]` tags don't have extra quotes inside
+- **iOS zoom issues**: Ensure input font-size is 16px minimum
+- **Mobile keyboard covering input**: Check bottom padding (50vh) is applied on mobile
 
-## Known Issues to Address
-- **Mobile bullet point alignment**: Hanging indent implementation needs refinement for different bullet types
-- Current hanging indent works but may need adjustment for various content structures
+## Recent Updates
+- ✅ Boot sequence with beep sound on completion
+- ✅ Case-insensitive command execution
+- ✅ Mobile UX improvements (zoom fix, keyboard visibility, fuzzy text fix)
+- ✅ Clickable commands and links throughout site
+- ✅ Contact page with clickable email, phone, LinkedIn
+- ✅ Help page with all commands clickable
+- ✅ Copyright footer with dynamic year
+- ✅ Title updated to "Senior .NET Developer, AI Engineer, and Architect"
