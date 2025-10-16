@@ -83,7 +83,27 @@
       return updated;
     });
   }
+
+  function handleCommandClick(commandText: string) {
+    // Trigger command execution by simulating input submission
+    const input = document.getElementById('command-input') as HTMLInputElement;
+    if (input) {
+      input.value = commandText;
+      input.dispatchEvent(new KeyboardEvent('keydown', { key: 'Enter', bubbles: true }));
+    }
+  }
 </script>
+
+<style>
+  .command-link:hover {
+    text-decoration: underline;
+    opacity: 0.8;
+  }
+
+  .command-link:active {
+    opacity: 0.6;
+  }
+</style>
 
 {#each $history as historyItem, historyIndex}
   <div class="mb-8" style={`color: ${$theme.foreground}`}>
@@ -108,7 +128,14 @@
         <p class="whitespace-pre mb-2" style="word-wrap: break-word; overflow-wrap: break-word; max-width: 100%;">
           {#each parsedParts as part, index}
             {#if part.type === 'command'}
-              <span style={`color: ${$theme.yellow}; font-weight: bold;`}>{part.text}</span>
+              <span
+                role="button"
+                tabindex="0"
+                on:click={() => handleCommandClick(part.text)}
+                on:keydown={(e) => e.key === 'Enter' && handleCommandClick(part.text)}
+                style={`color: ${$theme.yellow}; font-weight: bold; cursor: pointer; transition: opacity 0.2s;`}
+                class="command-link"
+              >{part.text}</span>
             {:else if part.type === 'dim'}
               <span style={`opacity: 0.6; font-weight: bold;`}>{part.text}</span>
             {:else if part.type === 'arrow'}
