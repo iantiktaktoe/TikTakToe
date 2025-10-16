@@ -85,10 +85,13 @@
   }
 
   function handleCommandClick(commandText: string) {
+    // Strip quotes if present (e.g., 'help' -> help)
+    const cleanCommand = commandText.replace(/^['"]|['"]$/g, '');
+
     // Trigger command execution by simulating input submission
     const input = document.getElementById('command-input') as HTMLInputElement;
     if (input) {
-      input.value = commandText;
+      input.value = cleanCommand;
       input.dispatchEvent(new KeyboardEvent('keydown', { key: 'Enter', bubbles: true }));
     }
   }
