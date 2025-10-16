@@ -29,6 +29,12 @@ pre, code {
   max-width: 100%;
 }
 
+/* Allow paragraph text to wrap on desktop too */
+.whitespace-pre {
+  white-space: pre-wrap;
+  max-width: 100%;
+}
+
 /* Scale down ASCII art on mobile but keep titles readable */
 @media (max-width: 640px) {
   /* Only target the ASCII art specifically, not all pre/whitespace-pre */
