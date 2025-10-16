@@ -59,6 +59,11 @@
       event.preventDefault();
     }
 
+    // Don't process empty commands
+    if (!command.trim()) {
+      return;
+    }
+
     const [commandName, ...args] = command.split(' ');
     const commandNameLower = commandName.toLowerCase();
 
@@ -162,11 +167,10 @@
     name="command-input"
     aria-label="Command input"
     class="bg-transparent outline-none font-bold"
-    style={`color: ${$theme.foreground}; caret-color: transparent; width: ${command.length > 0 ? command.length + 1 : 1}ch; vertical-align: baseline; line-height: 1; ${command.length > 0 ? 'background-color: #33cc33; color: #000000; padding: 2px 4px;' : ''}`}
+    style={`color: ${$theme.foreground}; caret-color: transparent; width: ${command.length > 0 ? command.length + 1 : 1}ch; vertical-align: baseline; line-height: 1; font-size: 16px; ${command.length > 0 ? 'background-color: #33cc33; color: #000000; padding: 2px 4px;' : ''}`}
     type="text"
     bind:value={command}
     on:keydown={handleKeyDown}
-    on:blur={() => input.focus()}
     bind:this={input}
   />
 </form>
