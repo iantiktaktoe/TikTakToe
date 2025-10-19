@@ -175,7 +175,10 @@ Just some of the clients I've had the opportunity to work with:
 • National Grid            • Staffordshire University
 • McCann                   • Halifax
 • AstraZeneca              • Barclays Technology
-• Lloyds Bank              • Eversheds[/DESKTOP][MOBILE]• JCB
+• Lloyds Bank              • Eversheds
+• Boots PLC                • Aberdeenshire Council
+• RICS                     • Sage
+• Diageo[/DESKTOP][MOBILE]• JCB
 • Police Mutual
 • RICOH
 • Ingersoll Rand
@@ -218,7 +221,12 @@ Just some of the clients I've had the opportunity to work with:
 • Staffordshire University
 • Halifax
 • Barclays Technology
-• Eversheds[/MOBILE]
+• Eversheds
+• Boots PLC
+• Aberdeenshire Council
+• RICS
+• Sage
+• Diageo[/MOBILE]
 
 Industries: Government, Finance, Pharma, Legal, Retail, Manufacturing, Education
 
